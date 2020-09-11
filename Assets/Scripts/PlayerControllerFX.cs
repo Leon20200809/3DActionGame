@@ -10,6 +10,14 @@ public class PlayerControllerFX : MonoBehaviour
     [Header("回転速度")]
     public float rotateSpeed;
 
+    [Header("ジャンプ力")]
+    public float jumpPower;
+
+    [Header("地面判定用レイヤー")]
+    public LayerMask groundLayer;
+
+    public bool isGround;
+
     Rigidbody rb;
     Animator anim;
 
@@ -23,7 +31,8 @@ public class PlayerControllerFX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Jumpメソッドを呼び出す
+        Jump();
     }
 
     void FixedUpdate()
@@ -81,6 +90,27 @@ public class PlayerControllerFX : MonoBehaviour
 
         // 引数はVector3　Playerの向きを、自分を中心に変える
         transform.LookAt(transform.position + forward);
+    }
+    /// <summary> 
+	/// ジャンプ
+	/// </summary>
+    void Jump()
+    {
+        //  Linecastでキャラの足元に地面があるか判定  地面があるときはTrueを返す
+        isGround = Physics.Linecast(transform.position + transform.up * 1, transform.position - transform.up * 0.3f, groundLayer);
+
+        //  着地していたとき、キー入力のJumpで反応（GetButton）スペースキー(GetKey)
+        if (Input.GetButtonDown("Jump") && isGround)
+        {
+            //  着地判定をfalse
+            isGround = false;
+
+            //  Jumpステートへ遷移してジャンプアニメを再生
+            anim.Play("Jump");
+
+            //  AddForceにて上方向へ力を加える
+            rb.AddForce(Vector3.up * jumpPower);
+        }
     }
 
 }
