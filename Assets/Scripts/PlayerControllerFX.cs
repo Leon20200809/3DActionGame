@@ -134,6 +134,7 @@ public class PlayerControllerFX : MonoBehaviour
         {
             anim.Play("Attack");
             Debug.Log("敵に対して " + attackPower + " のダメージを与える");
+            
         }
     }
     void HIt()
