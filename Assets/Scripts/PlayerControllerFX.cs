@@ -18,6 +18,9 @@ public class PlayerControllerFX : MonoBehaviour
 
     public bool isGround;
 
+    [Header("攻撃力")]
+    public int attackPower;
+
     Rigidbody rb;
     Animator anim;
 
@@ -33,10 +36,19 @@ public class PlayerControllerFX : MonoBehaviour
     {
         //Jumpメソッドを呼び出す
         Jump();
+
+        //Attackメソッドを呼び出す
+        Attack();
     }
 
     void FixedUpdate()
     {
+        // 攻撃アニメ再生中は、以下の処理しない
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        {
+            return;
+        }
+
         //キー入力
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -111,6 +123,23 @@ public class PlayerControllerFX : MonoBehaviour
             //  AddForceにて上方向へ力を加える
             rb.AddForce(Vector3.up * jumpPower);
         }
+
     }
+    /// <summary> 
+    /// 通常攻撃
+    /// </summary>
+    void Attack()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            anim.Play("Attack");
+            Debug.Log("敵に対して " + attackPower + " のダメージを与える");
+        }
+    }
+    void HIt()
+    {
+        
+    }
+
 
 }
