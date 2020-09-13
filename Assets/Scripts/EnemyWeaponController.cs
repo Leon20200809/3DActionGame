@@ -6,7 +6,7 @@ public class EnemyWeaponController : MonoBehaviour
 {
     public CapsuleCollider capsuleCollider;
 
-    public EnemyController EnemyController;
+    public EnemyController enemyController;
 
     public float attackAnimeTime;
 

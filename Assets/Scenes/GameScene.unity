@@ -7285,9 +7285,10 @@ MonoBehaviour:
     m_Bits: 256
   isGround: 0
   attackPower: 10
-  criticalSuccessRate: 0
+  criticalSuccessRate: 10
   criticalMultiplier: 1.25
   weaponController: {fileID: 2282152509763428228}
+  enemyWeaponController: {fileID: 1762796674163026053}
   weaponSound: {fileID: 8300000, guid: 9453fc6dd4400be49971c3c4e615a98d, type: 3}
 --- !u!114 &1905828550
 MonoBehaviour:
@@ -7464,7 +7465,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.15
+  m_Radius: 0.5
   m_Height: 1
   m_Direction: 2
   m_Center: {x: 0, y: 0.1, z: 0.4}
@@ -7497,8 +7498,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capsuleCollider: {fileID: 1762796674163026051}
-  EnemyController: {fileID: 1762796674163026065}
-  attackAnimeTime: 0.2
+  enemyController: {fileID: 0}
+  attackAnimeTime: 0.1
 --- !u!1 &1762796674163026054
 GameObject:
   m_ObjectHideFlags: 0
@@ -7652,8 +7653,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.8
-  m_Height: 1
+  m_Radius: 0.3
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1 &1762796674163026068
@@ -8432,7 +8433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2282152509763428226}
   m_LocalRotation: {x: 0.66938233, y: -0.5794154, z: 0.27351692, w: -0.3760234}
-  m_LocalPosition: {x: -0.026, y: -0.124, z: -0.006}
+  m_LocalPosition: {x: -0.014, y: -0.192, z: -0.011}
   m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
   m_Children: []
   m_Father: {fileID: 776006086}
@@ -8486,4 +8487,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capsuleCollider: {fileID: 2282152509763428227}
   PlayerControllerFX: {fileID: 1905828549}
-  attackAnimeTime: 0.2
+  attackAnimeTime: 0.03

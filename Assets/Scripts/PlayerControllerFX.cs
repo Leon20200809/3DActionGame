@@ -37,6 +37,7 @@ public class PlayerControllerFX : MonoBehaviour
     Rigidbody rb;
     Animator anim;
     public WeaponController weaponController;
+    public EnemyWeaponController enemyWeaponController;
     public AudioClip weaponSound;
 
     // Start is called before the first frame update
@@ -158,16 +159,16 @@ public class PlayerControllerFX : MonoBehaviour
     //食らい判定
     void OnTriggerEnter(Collider col)
     {
+        Debug.Log(col.gameObject.tag);
         // EnemyWeaponタグ以外は当たり判定として判定しない
-        if (col.gameObject.tag != enemyweapon)
+        if (col.gameObject.name != enemyweapon)
         {
             return;
         }
-
-               
+        
         // AttackPowerを取得したいため、まずはWeaponゲームオブジェクトのWeaponControllerから、PlayerControllerを取得
-        EnemyController enemyController = col.gameObject.GetComponent<EnemyWeaponController>().EnemyController;
-
+        EnemyController enemyController = col.gameObject.GetComponent<EnemyWeaponController>().enemyController;
+        
         // EnemyControllerクラスが変数に代入できているか確認
         Debug.Log(enemyController);
 
