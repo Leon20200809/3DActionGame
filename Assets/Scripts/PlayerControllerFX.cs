@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerControllerFX : MonoBehaviour
 {
+    [Header("現在のHP")]
+    public int hp;
+
     [Header("移動速度")]
     public float moveSpeed;
 
@@ -21,12 +24,25 @@ public class PlayerControllerFX : MonoBehaviour
     [Header("攻撃力")]
     public int attackPower;
 
+    [Header("クリティカルの発生確率")]
+    public int criticalSuccessRate;
+
+    [Header("クリティカル時の攻撃力倍率")]
+    public float criticalMultiplier;
+
+    // タグ指定用
+    string enemyweapon = "EnemyWeapon";
+
+    //クラス宣言
     Rigidbody rb;
     Animator anim;
+    public WeaponController weaponController;
+    public AudioClip weaponSound;
 
     // Start is called before the first frame update
     void Start()
     {
+        //コンポーネント取得
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
     }
@@ -133,8 +149,37 @@ public class PlayerControllerFX : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             anim.Play("Attack");
+            AudioSource.PlayClipAtPoint(weaponSound, transform.position);
+            weaponController.ActivateWeaponCollider(true);
             Debug.Log("敵に対して " + attackPower + " のダメージを与える");
             
+        }
+    }
+    //食らい判定
+    void OnTriggerEnter(Collider col)
+    {
+        // EnemyWeaponタグ以外は当たり判定として判定しない
+        if (col.gameObject.tag != enemyweapon)
+        {
+            return;
+        }
+
+               
+        // AttackPowerを取得したいため、まずはWeaponゲームオブジェクトのWeaponControllerから、PlayerControllerを取得
+        EnemyController enemyController = col.gameObject.GetComponent<EnemyWeaponController>().EnemyController;
+
+        // EnemyControllerクラスが変数に代入できているか確認
+        Debug.Log(enemyController);
+
+        // EnemyControllerのAttackPowerをHPから減算
+        hp -= enemyController.attackPower;
+        Debug.Log("残HP : " + hp);
+
+        // 残りHPの確認
+        if (hp <= 0)
+        {
+            Debug.Log("落命");
+            Destroy(gameObject);
         }
     }
     void HIt()
@@ -142,5 +187,28 @@ public class PlayerControllerFX : MonoBehaviour
         
     }
 
+    // Player側にクリティカルの判定を持たせる場合のメソッド例(EnemyController側で呼び出す)
+    public int SetDamage()
+    {
+        // ダメージ決定用の変数。この値を戻り値にする
+        int damage;
+
+        // クリティカル判定用の値を取得
+        int criticalValue = Random.Range(0, 100);
+
+        // クリティカル判定
+        if (criticalValue <= criticalSuccessRate)
+        {
+            // クリティカルした場合には、攻撃力にクリティカル倍率をかけた値をdamageとする
+            damage = Mathf.CeilToInt(attackPower * criticalMultiplier);    // (int)  attackPower = int * criticalMultiplier = float 計算結果はfloatになるため、intに型変換するしながら小数点使者五洲(単純なintキャストの場合は小数点切り捨て)
+        }
+        else
+        {
+            // クリティカルしない場合には、攻撃力をそのままdamageとする
+            damage = attackPower;
+        }
+        // damageを戻り値として戻す
+        return damage;
+    }
 
 }

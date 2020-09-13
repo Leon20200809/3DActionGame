@@ -10,7 +10,7 @@ public class WeaponController : MonoBehaviour
 
     public float attackAnimeTime;
 
-    public AudioClip weaponSound;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -30,10 +30,10 @@ public class WeaponController : MonoBehaviour
     /// </summary>
     public void ActivateWeaponCollider(bool isSwitch)
     {
-        AudioSource.PlayClipAtPoint(weaponSound, transform.position);
+        
         capsuleCollider.enabled = isSwitch;
         StartCoroutine(AttackTime());
-        Debug.Log(capsuleCollider);
+        //Debug.Log(capsuleCollider);
         
     }
 
