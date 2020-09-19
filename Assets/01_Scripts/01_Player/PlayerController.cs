@@ -227,10 +227,7 @@ public class PlayerController : MonoBehaviour
         //やられボイス再生
         AudioSource.PlayClipAtPoint(voiceSE2, animator.gameObject.transform.position);
         animator.GetComponent<PlayerController>().rakumei.SetActive(true);
-
-
     }
-
 
     //武器の攻撃判定オン/オフ
     public void WeaponColON()
@@ -275,7 +272,8 @@ public class PlayerController : MonoBehaviour
     //居合い移動用
     public void IaiMove()
     {
-        transform.DOLocalMove(transform.forward * 4, 1.5f).SetRelative();
+        rb.velocity = Vector3.zero;
+        transform.DOLocalMove(transform.forward * 4, 0.6f).SetRelative();
     }
 
     //回避移動用

@@ -1201,6 +1201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1108964bf04259a498aef0f69049053f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startvoice: {fileID: 8300000, guid: 1ec434e75e64c4dc7ab389969fcfaa46, type: 3}
 --- !u!4 &1600573129
 Transform:
   m_ObjectHideFlags: 0
@@ -1240,7 +1241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730286100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1560, y: 540, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1258,6 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a744366891a57408e7c267bb3c6e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Exitvoice: {fileID: 8300000, guid: d1eeb8b55c55644d5923b4c51c65ed60, type: 3}
   quitCheckPouUpPrefab: {fileID: 1311760586334718643, guid: ea4935dc20e00744386668ea3d298167,
     type: 3}
   canvasTran: {fileID: 1166702912580569366}
