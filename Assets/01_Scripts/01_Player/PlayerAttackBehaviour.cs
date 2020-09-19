@@ -12,7 +12,7 @@ public class PlayerAttackBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //攻撃中は移動速度を0ｆにする
-        animator.GetComponent<PlayerController>().moveSpeed = 0.5f;
+        animator.GetComponent<PlayerController>().moveSpeed = 6f;
         AudioSource.PlayClipAtPoint(weaponSE, animator.gameObject.transform.position);
         AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
 
