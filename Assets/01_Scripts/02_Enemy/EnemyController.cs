@@ -74,7 +74,14 @@ public class EnemyController : MonoBehaviour
         {
             //食らいモーション再生
             animator.SetTrigger("Attacked");
+
+            //ヒットバック
+            //transform.DOLocalMove(transform.forward * -0.1f, 0.8f).SetRelative();
+
+            //エフェクト再生
             GenerateEffect(other.gameObject);
+
+            //ダメージ更新
             Damage(damager.damage); 
         }
     }
@@ -124,14 +131,14 @@ public class EnemyController : MonoBehaviour
     {
         //食らいエフェクトを生成する
         GameObject effect = Instantiate(effectPrefab, other.transform.position, Quaternion.identity);
-        Destroy(effect.gameObject, 1f);
+        Destroy(effect, 1f);
     }
 
     public void GenerateEffect2(GameObject other)
     {
         //死亡エフェクトを生成する
         GameObject effect2 = Instantiate(effectPrefab2, transform.position, Quaternion.identity);
-        Destroy(effect2.gameObject, 0.5f);
+        Destroy(effect2, 0.5f);
 
     }
 }

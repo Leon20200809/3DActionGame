@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     float x;
     float z;
     public float moveSpeed;
+    public float knockBackPower;
 
     //ステータス設定
     public PlayerUIManager playerUIManager;
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     bool isDead = false;
 
     //落命テキスト取得
-    public GameObject gameOverText;
+    public GameObject rakumei;
     public AudioClip voiceSE2;
 
     //食らい判定用
@@ -41,8 +42,8 @@ public class PlayerController : MonoBehaviour
     //コンポーネント宣言
     Rigidbody rb;
     Animator animator;
-    
-    
+
+
     void Start()
     {
         //初期ステータス設定
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour
         {
             LookAtTarget();
             animator.SetTrigger("Attack");
-            
+            //transform.DOLocalMove(transform.forward * 0.1f, 0.8f).SetRelative();
         }
 
         //特殊攻撃アクション入力 SP消費行動
@@ -175,6 +176,8 @@ public class PlayerController : MonoBehaviour
     //プレイヤーの食らい判定
     private void OnTriggerEnter(Collider other)
     {
+        //other - transform.position = h;
+
         if (isDead)
         {
             return;
@@ -194,6 +197,8 @@ public class PlayerController : MonoBehaviour
         {
             //食らいモーション再生
             animator.SetTrigger("Attacked");
+            rb.velocity = Vector3.zero;
+            rb.AddForce(-transform.forward * knockBackPower, ForceMode.VelocityChange);
             GenerateEffect(other.gameObject);
             Damage(damager.damage);
             
@@ -221,7 +226,8 @@ public class PlayerController : MonoBehaviour
     {
         //やられボイス再生
         AudioSource.PlayClipAtPoint(voiceSE2, animator.gameObject.transform.position);
-        animator.GetComponent<PlayerController>().gameOverText.SetActive(true);
+        animator.GetComponent<PlayerController>().rakumei.SetActive(true);
+
 
     }
 

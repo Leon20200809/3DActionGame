@@ -15,11 +15,11 @@ public class PlayerAttackedBehaviour : StateMachineBehaviour
         //食らい判定トリガーリセット
         animator.ResetTrigger("Attacked");
 
-        //食らい判定トリガーリセット
+        //攻撃判定トリガーリセット
         animator.ResetTrigger("Attack");
 
-        //食らい判定トリガーリセット
-        animator.ResetTrigger("Attack_H");
+        //Ｈ攻撃判定トリガーリセット
+        //animator.ResetTrigger("Attack_H");
 
         //攻撃判定オフ
         animator.GetComponent<PlayerController>().WeaponColOFF();
@@ -28,7 +28,7 @@ public class PlayerAttackedBehaviour : StateMachineBehaviour
         animator.GetComponent<PlayerController>().TrailRendOFF();
 
         //食らいモーション中は移動速度を0.5ｆにする
-        animator.GetComponent<PlayerController>().moveSpeed = 0.5f;
+        animator.GetComponent<PlayerController>().moveSpeed = 0.1f;
 
         //ダメージSE、ボイス再生
         AudioSource.PlayClipAtPoint(dmageSE, animator.gameObject.transform.position);
@@ -46,7 +46,7 @@ public class PlayerAttackedBehaviour : StateMachineBehaviour
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<PlayerController>().moveSpeed = 8;
+        animator.GetComponent<PlayerController>().moveSpeed = 6;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
