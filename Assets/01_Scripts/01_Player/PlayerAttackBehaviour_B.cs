@@ -11,8 +11,8 @@ public class PlayerAttackBehaviour_B : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //攻撃中は移動速度を0ｆにする
-        animator.GetComponent<PlayerController>().moveSpeed = 0f;
+        //このモーション中は攻撃力を100にする
+        animator.gameObject.GetComponent<Damager>().damage = 100;
         AudioSource.PlayClipAtPoint(weaponSE, animator.gameObject.transform.position);
         AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
     }
@@ -26,9 +26,11 @@ public class PlayerAttackBehaviour_B : StateMachineBehaviour
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
+        animator.gameObject.GetComponent<Damager>().damage = 10;
+
         //食らい判定トリガーリセット
         animator.ResetTrigger("Attacked");
-        animator.GetComponent<PlayerController>().moveSpeed = 6f;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

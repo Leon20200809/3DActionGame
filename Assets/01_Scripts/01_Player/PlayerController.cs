@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public PlayerUIManager playerUIManager;
     public int maxHp = 1000;
     public int hp;
-    public int maxSp = 3000;
+    public int maxSp = 2000;
     public int sp;
 
     //死亡判定
@@ -42,6 +42,15 @@ public class PlayerController : MonoBehaviour
     //コンポーネント宣言
     Rigidbody rb;
     Animator animator;
+
+    //プレイヤーの状態
+    public enum PlayerState
+    {
+        Normal,
+        Attack,
+    }
+
+    public PlayerState playerState = PlayerState.Normal;
 
 
     void Start()
@@ -72,13 +81,22 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //前後左右移動入力
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
+        x = 0;
+        z = 0;
+
+        if (playerState != PlayerState.Attack)
+        {
+            //前後左右移動入力
+            x = Input.GetAxis("Horizontal");
+            z = Input.GetAxis("Vertical");
+        }
+        
 
         //通常攻撃アクション入力
         if (Input.GetButtonDown("Fire1"))
         {
+            playerState = PlayerState.Attack;
+            rb.velocity = Vector3.zero;
             LookAtTarget();
             animator.SetTrigger("Attack");
             //transform.DOLocalMove(transform.forward * 0.1f, 0.8f).SetRelative();
@@ -87,11 +105,12 @@ public class PlayerController : MonoBehaviour
         //特殊攻撃アクション入力 SP消費行動
         if (Input.GetButtonDown("Fire2"))
         {
-            if (sp >= 1000)
+            if (sp >= 500)
             {
-                sp -= 1000;
+                sp -= 500;
+                playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
-
+                rb.velocity = Vector3.zero;
                 LookAtTarget();
                 animator.SetTrigger("Attack_H");
             }
@@ -101,11 +120,12 @@ public class PlayerController : MonoBehaviour
         //パリィアクション入力 SP消費行動
         if (Input.GetButtonDown("Fire3"))
         {
-            if (sp >= 1300)
+            if (sp >= 1100)
             {
-                sp -= 1300;
+                sp -= 1100;
+                playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
-
+                rb.velocity = Vector3.zero;
                 LookAtTarget();
                 animator.SetTrigger("Parry");
             }
@@ -115,11 +135,12 @@ public class PlayerController : MonoBehaviour
         //回避アクション入力 SP消費行動
         if (Input.GetButtonDown("Jump"))
         {
-            if (sp >= 600)
+            if (sp >= 300)
             {
-                sp -= 600;
-                playerUIManager.UpdateSP(sp);
+                sp -= 300;
 
+                playerUIManager.UpdateSP(sp);
+                rb.velocity = Vector3.zero;
                 animator.SetTrigger("Dodge");
                 Vector3 direction = transform.position + new Vector3(x, 0, z) * moveSpeed;
                 transform.LookAt(direction);
@@ -160,7 +181,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //移動アニメーション開始
-        animator.SetFloat("Speed", rb.velocity.magnitude);
+        animator.SetFloat("Speed", rb.velocity.magnitude);  
 
         /*//移動先へ方向転換
         Vector3 direction = transform.position + new Vector3(x, 0, z) * moveSpeed;
@@ -176,7 +197,6 @@ public class PlayerController : MonoBehaviour
     //プレイヤーの食らい判定
     private void OnTriggerEnter(Collider other)
     {
-        //other - transform.position = h;
 
         if (isDead)
         {
@@ -192,17 +212,40 @@ public class PlayerController : MonoBehaviour
             GenerateEffect(gameObject);
         }*/
 
+
         //食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
         if (other.gameObject.TryGetComponent(out Damager damager))
         {
             //食らいモーション再生
             animator.SetTrigger("Attacked");
+
+            //無敵時間発生
+            StartCoroutine(InvTime());
+
+            //プレイヤー位置を初期化
             rb.velocity = Vector3.zero;
-            rb.AddForce(-transform.forward * knockBackPower, ForceMode.VelocityChange);
+
+            // 自分の位置と接触してきたオブジェクトの位置とを計算して、距離と方向を出して正規化(速度ベクトルを算出)
+            Vector3 distination = (transform.position - other.transform.position).normalized;
+
+            //ノックバック距離
+            rb.AddForce(distination * knockBackPower, ForceMode.VelocityChange);
+
+            //エフェクト再生とダメージ値をＨＰに反映
             GenerateEffect(other.gameObject);
             Damage(damager.damage);
-            
+
+
         }
+    }
+
+    //食らい中無敵
+    private IEnumerator InvTime()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Invincible");
+        yield return new WaitForSeconds(1.0f);
+        gameObject.layer = LayerMask.NameToLayer("Player");
+
     }
 
     //ダメージ管理
@@ -222,6 +265,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //プレイヤー死亡時
     public void DeadEnd()
     {
         //やられボイス再生
@@ -269,17 +313,38 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //通常攻撃移動用
+    public void AttackMove()
+    {
+        rb.velocity = Vector3.zero;
+        transform.DOLocalMove(transform.forward * 0.3f, 0.2f).SetRelative();
+        rb.velocity = Vector3.zero;
+    }
+
     //居合い移動用
     public void IaiMove()
     {
         rb.velocity = Vector3.zero;
-        transform.DOLocalMove(transform.forward * 4, 0.6f).SetRelative();
+        transform.DOLocalMove(transform.forward * 3.5f, 0.3f).SetRelative();
+        rb.velocity = Vector3.zero;
+    }
+
+    //残月移動用
+    public void ZangetsuMove()
+    {
+        rb.velocity = Vector3.zero;
+        transform.DOLocalMove(transform.forward * 1.1f, 0.3f).SetRelative();
+        rb.velocity = Vector3.zero;
     }
 
     //回避移動用
     public void DodgeMove()
     {
-        transform.DOLocalMove(transform.forward * 5, 0.8f).SetRelative();
+        rb.velocity = Vector3.zero;
+        transform.DOLocalMove(transform.forward * 4f, 0.8f).SetRelative();
+        //無敵時間発生
+        StartCoroutine(InvTime());
+        rb.velocity = Vector3.zero;
     }
 
 

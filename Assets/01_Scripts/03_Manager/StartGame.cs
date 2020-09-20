@@ -8,10 +8,19 @@ using DG.Tweening;
 public class StartGame : MonoBehaviour    
 {
     public AudioClip startvoice;
+    public GameObject particle;
+    public Transform canvasTransform;
+    public Transform startBtnTransform;
 
     public void OnStartButton()
     {
-        AudioSource.PlayClipAtPoint(startvoice, gameObject.transform.position);
+        AudioSource.PlayClipAtPoint(startvoice, Camera.main.transform.position);
+        Instantiate(particle, canvasTransform, false);
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(startBtnTransform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.1f));
+        sequence.AppendInterval(0.1f);
+        sequence.Append(startBtnTransform.DOScale(Vector3.one, 0.1f));
 
         //コルーチンメソッド呼び出し
         StartCoroutine(Kankaku());

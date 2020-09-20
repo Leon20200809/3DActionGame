@@ -13,7 +13,7 @@ public class PlayerAttackedBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //食らい判定トリガーリセット
-        animator.ResetTrigger("Attacked");
+        //animator.ResetTrigger("Attacked");
 
         //攻撃判定トリガーリセット
         animator.ResetTrigger("Attack");
@@ -28,7 +28,7 @@ public class PlayerAttackedBehaviour : StateMachineBehaviour
         animator.GetComponent<PlayerController>().TrailRendOFF();
 
         //食らいモーション中は移動速度を0.5ｆにする
-        animator.GetComponent<PlayerController>().moveSpeed = 0.1f;
+        animator.GetComponent<PlayerController>().moveSpeed = 0f;
 
         //ダメージSE、ボイス再生
         AudioSource.PlayClipAtPoint(dmageSE, animator.gameObject.transform.position);

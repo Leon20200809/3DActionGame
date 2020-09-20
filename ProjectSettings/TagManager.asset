@@ -17,10 +17,10 @@ TagManager:
   - 
   - 
   - Ground
-  - Weapon
-  - 
-  - 
-  - 
+  - EnemyWeapon
+  - Invincible
+  - Enemy
+  - Player
   - 
   - 
   - 

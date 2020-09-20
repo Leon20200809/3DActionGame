@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class QuitCheckPouUp : MonoBehaviour
@@ -12,7 +13,7 @@ public class QuitCheckPouUp : MonoBehaviour
     void Start()
     {
         // 各ボタンに処理を登録
-        btnQuitGame.onClick.AddListener(ExitGame.QuitGame);
+        btnQuitGame.onClick.AddListener(OnStartButton);
         btnClosePopup.onClick.AddListener(OnClickClosePopUp);
 
         // ゲーム内時間の流れを停止
@@ -27,5 +28,12 @@ public class QuitCheckPouUp : MonoBehaviour
         // ゲーム内時間の流れを再開する
         Time.timeScale = 1.0f;
         Destroy(gameObject);
+    }
+
+    public static void OnStartButton()
+    {
+        Time.timeScale = 1.0f;
+        //タイトルシーンへ移行
+        SceneManager.LoadScene("Title");
     }
 }
