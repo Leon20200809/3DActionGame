@@ -41,10 +41,16 @@ public class ElixirBehaviour : StateMachineBehaviour
     {
         //HP回復
         playerController.hp += 600;
-        playerUIManager.UpdateHP(playerController.hp);
+        if (playerController.hp >= playerController.maxHp)
+        {
+            playerController.hp = playerController.maxHp;
+        }
+
         playerController.elixir--;
         GameObject effect = Instantiate(effectPrefab, animator.gameObject.transform.position, Quaternion.identity);
         Destroy(effect, 1f);
+        playerController.playerUIManager.UpdateHP(playerController.hp);
+        playerController.playerUIManager.UpdateElxir();
 
         AudioSource.PlayClipAtPoint(elxirSE, animator.gameObject.transform.position);
 

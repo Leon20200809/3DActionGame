@@ -10,6 +10,7 @@ public class PlayerUIManager : MonoBehaviour
     public Slider hpSlider;
     public Slider spSlider;
     public Text elxirNum;
+    public PlayerController playerController;
 
     //HP更新
     public void UpdateHP(int hp)
@@ -24,17 +25,22 @@ public class PlayerUIManager : MonoBehaviour
     }
 
     //お薬更新
-    public void UpdateElxir(int elixir)
+    public void UpdateElxir()
     {
-        //elxirNum.text = ;
+        elxirNum.ToString();
     }
 
     //初期化
     public void Init(PlayerController playerManager)
     {
+        //HP,SP
         hpSlider.maxValue = playerManager.maxHp;
         hpSlider.value = playerManager.maxHp;
         spSlider.maxValue = playerManager.maxSp;
         spSlider.value = playerManager.maxSp;
+
+        //お薬所持数
+        //elxirNum.text = playerController.maxElixir.ToString();
     }
+
 }

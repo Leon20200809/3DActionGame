@@ -1080,7 +1080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.5344069, g: 1, b: 0.28773582, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9819,6 +9819,7 @@ MonoBehaviour:
   hpSlider: {fileID: 1781338192}
   spSlider: {fileID: 188433846}
   elxirNum: {fileID: 970727337}
+  elxir: 0
 --- !u!1 &1524186139
 GameObject:
   m_ObjectHideFlags: 0

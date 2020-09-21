@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public int sp;
 
     //お薬所持数
+    public int maxElixir;
     public int elixir;
 
     //死亡判定
@@ -173,12 +174,14 @@ public class PlayerController : MonoBehaviour
         //お薬使用
         if (Input.GetButtonDown("elixir"))
         {
-            if (elixir >= 1)
+            if (elixir >= 1 && hp < maxHp)
             {
                 playerState = PlayerState.Attack;
                 
                 rb.velocity = Vector3.zero;
                 animator.SetTrigger("Elixir");
+                //playerUIManager.UpdateHP(hp);
+
             }
 
         }
@@ -280,7 +283,6 @@ public class PlayerController : MonoBehaviour
     public void DeadEnd()
     {
         //やられボイス再生
-        //AudioSource.PlayClipAtPoint(voiceSE2, animator.gameObject.transform.position);
         AudioSource.PlayClipAtPoint(voiceSE2, Camera.main.transform.position);
         animator.GetComponent<PlayerController>().rakumei.SetActive(true);
     }
@@ -301,6 +303,7 @@ public class PlayerController : MonoBehaviour
     {
         weaponCollider.enabled = false;
     }
+
     //蹴り用の攻撃判定オン
     public void WeaponCol2ON()
     {
