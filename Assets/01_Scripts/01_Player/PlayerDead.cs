@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerDead : StateMachineBehaviour
 {
     public AudioClip voiceSE1;
+    public AudioClip deadSE;
     
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //やられボイス再生
-        AudioSource.PlayClipAtPoint(voiceSE1, animator.gameObject.transform.position);
+        AudioSource.PlayClipAtPoint(voiceSE1, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(deadSE, Camera.main.transform.position);
 
     }
 
@@ -25,6 +27,7 @@ public class PlayerDead : StateMachineBehaviour
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

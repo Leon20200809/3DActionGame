@@ -4,11 +4,29 @@ using UnityEngine;
 
 public class PlayerParry : StateMachineBehaviour
 {
+    public AudioClip weaponSE;
+    public AudioClip voiceSE;
+
+    private PlayerController playerController;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        // PlayerControllerを取得していない場合には取得する
+        if (playerController == null)
+        {
+            playerController = animator.gameObject.GetComponent<PlayerController>();
+        }
+
+        //現在のSPからモーションに応じてSPを減らす
+        playerController.sp -= 1100;
+
+        //このモーション中は攻撃力を変化させる
+        //playerController.damager.damage = 50;
+
+        AudioSource.PlayClipAtPoint(weaponSE, animator.gameObject.transform.position);
+        AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

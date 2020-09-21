@@ -13,9 +13,11 @@ public class EnemyController : MonoBehaviour
 
     //食らい判定用
     public Collider weaponCollider;
+    Rigidbody rb;
+    public float knockBackPower;
 
     //ステータス設定
-    public int maxHp = 100;
+    public int maxHp;
     public int hp;
     public EnemyUIManager enemyUIManager;
 
@@ -34,6 +36,7 @@ public class EnemyController : MonoBehaviour
         //コンポーネント格納
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
 
         //行き先＝destination
         agent.destination = target.position;
@@ -70,13 +73,21 @@ public class EnemyController : MonoBehaviour
         }*/
 
         //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
-        if (other.gameObject.TryGetComponent(out Damager damager))
+        if (other.gameObject.TryGetComponent(out Damager damager) && (other.CompareTag("Weapon")))
         {
             //食らいモーション再生
             animator.SetTrigger("Attacked");
 
+            //位置を初期化
+            rb.velocity = Vector3.zero;
+
             //ヒットバック
-            //transform.DOLocalMove(transform.forward * -0.1f, 0.8f).SetRelative();
+            // 自分の位置と接触してきたオブジェクトの位置とを計算して、距離と方向を出して正規化(速度ベクトルを算出)
+            Vector3 distination = (transform.position - other.transform.position).normalized;
+
+            //ノックバック距離
+            rb.AddForce(distination * knockBackPower, ForceMode.VelocityChange);
+            
 
             //エフェクト再生
             GenerateEffect(other.gameObject);

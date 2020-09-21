@@ -6,14 +6,13 @@ using DG.Tweening;
 
 public class EscPouUp : MonoBehaviour
 {
-    public QuitCheckPouUp quitCheckPouUpPrefab;  
-    private QuitCheckPouUp quitCheckPouUp = null; 
-    public Transform canvasTran;
+    public GameObject tutorialCanvas;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        tutorialCanvas = GameObject.Find("TutorialCanvas");
+        tutorialCanvas.GetComponent<Canvas>();
     }
 
     // Update is called once per frame
@@ -21,16 +20,9 @@ public class EscPouUp : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //ポップアップが生成されていない(変数が空)なら
-            if (quitCheckPouUp == null)
-            {
-                //（ポップアップが生成されていない場合だけ）終了確認用のポップアップを生成して変数にいれる
-                quitCheckPouUp = Instantiate(quitCheckPouUpPrefab, canvasTran, false);
-                // 変数に代入する処理を追加。生成＝値が入る。空ではなくなる
-
-
-                //Debug.Log(quitCheckPouUp);
-            }
+            tutorialCanvas.SetActive(true);
+            // ゲーム内時間の流れを停止
+            Time.timeScale = 0;
 
         }
     }

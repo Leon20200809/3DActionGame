@@ -6,9 +6,10 @@ using DG.Tweening;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    //HP情報取得用
+    //情報取得用
     public Slider hpSlider;
     public Slider spSlider;
+    public Text elxirNum;
 
     //HP更新
     public void UpdateHP(int hp)
@@ -20,6 +21,12 @@ public class PlayerUIManager : MonoBehaviour
     public void UpdateSP(int sp)
     {
         spSlider.DOValue(sp, 0.5f);
+    }
+
+    //お薬更新
+    public void UpdateElxir(int elixir)
+    {
+        //elxirNum.text = ;
     }
 
     //初期化

@@ -8,10 +8,23 @@ using DG.Tweening;
 public class ExitGame : MonoBehaviour
 {
     public AudioClip Exitvoice;
+    public Transform canvasTransform;
+    public Transform exitBtnTransform;
+    public GameObject particle;
+
 
     public void OnStartButton()
     {
         AudioSource.PlayClipAtPoint(Exitvoice, Camera.main.transform.position);
+
+        Instantiate(particle, canvasTransform, false);
+
+        //DoTween 大きさを1.5倍に0.1秒かけて0.1秒維持して元に戻す
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(exitBtnTransform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.1f));
+        sequence.AppendInterval(0.1f);
+        sequence.Append(exitBtnTransform.DOScale(Vector3.one, 0.1f));
+
 
         //コルーチンメソッド呼び出し
         StartCoroutine(Kankaku());

@@ -15,8 +15,9 @@ public class StartGame : MonoBehaviour
     public void OnStartButton()
     {
         AudioSource.PlayClipAtPoint(startvoice, Camera.main.transform.position);
-        Instantiate(particle, canvasTransform, false);
+        //Instantiate(particle, canvasTransform, false);
 
+        //DoTween 大きさを1.5倍に0.1秒かけて0.1秒維持して元に戻す
         Sequence sequence = DOTween.Sequence();
         sequence.Append(startBtnTransform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.1f));
         sequence.AppendInterval(0.1f);

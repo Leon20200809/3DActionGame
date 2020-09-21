@@ -10,13 +10,17 @@ public class PlayerController : MonoBehaviour
     float z;
     public float moveSpeed;
     public float knockBackPower;
+    public float hitBackPower;
 
     //ステータス設定
     public PlayerUIManager playerUIManager;
-    public int maxHp = 1000;
+    public int maxHp;
     public int hp;
-    public int maxSp = 2000;
+    public int maxSp;
     public int sp;
+
+    //お薬所持数
+    public int elixir;
 
     //死亡判定
     bool isDead = false;
@@ -27,6 +31,10 @@ public class PlayerController : MonoBehaviour
 
     //食らい判定用
     public Collider weaponCollider;
+    public Collider weaponCollider2;
+
+    //ダメージ管理用
+    public Damager damager;
 
     //HITエフェクト用
     public GameObject effectPrefab;
@@ -43,11 +51,14 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     Animator animator;
 
+  
+
     //プレイヤーの状態
     public enum PlayerState
     {
         Normal,
         Attack,
+        Special,
     }
 
     public PlayerState playerState = PlayerState.Normal;
@@ -67,6 +78,7 @@ public class PlayerController : MonoBehaviour
         
         //武器の当たり判定オフ
         weaponCollider.enabled = false;
+        weaponCollider2.enabled = false;
 
         //武器の軌跡エフェクトオフ
         trail.enabled = false;
@@ -99,15 +111,14 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector3.zero;
             LookAtTarget();
             animator.SetTrigger("Attack");
-            //transform.DOLocalMove(transform.forward * 0.1f, 0.8f).SetRelative();
         }
 
         //特殊攻撃アクション入力 SP消費行動
         if (Input.GetButtonDown("Fire2"))
         {
+
             if (sp >= 500)
             {
-                sp -= 500;
                 playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
                 rb.velocity = Vector3.zero;
@@ -122,7 +133,6 @@ public class PlayerController : MonoBehaviour
         {
             if (sp >= 1100)
             {
-                sp -= 1100;
                 playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
                 rb.velocity = Vector3.zero;
@@ -137,8 +147,7 @@ public class PlayerController : MonoBehaviour
         {
             if (sp >= 300)
             {
-                sp -= 300;
-
+                playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
                 rb.velocity = Vector3.zero;
                 animator.SetTrigger("Dodge");
@@ -160,9 +169,23 @@ public class PlayerController : MonoBehaviour
             }
             playerUIManager.UpdateSP(sp);
         }
+
+        //お薬使用
+        if (Input.GetButtonDown("elixir"))
+        {
+            if (elixir >= 1)
+            {
+                playerState = PlayerState.Attack;
+                
+                rb.velocity = Vector3.zero;
+                animator.SetTrigger("Elixir");
+            }
+
+        }
+
     }
 
-    
+
     private void FixedUpdate()  //演算処理はここに書く
     {
         //カメラの方向から、X-Z平面の単位ベクトルを取得
@@ -202,16 +225,6 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
-
-        /*Damager damager = other.GetComponent<Damager>();
-        if (damager != null)
-        {
-
-            animator.SetTrigger("Attacked");
-            GenerateEffect(gameObject);
-        }*/
-
 
         //食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
         if (other.gameObject.TryGetComponent(out Damager damager))
@@ -235,7 +248,6 @@ public class PlayerController : MonoBehaviour
             GenerateEffect(other.gameObject);
             Damage(damager.damage);
 
-
         }
     }
 
@@ -245,7 +257,6 @@ public class PlayerController : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Invincible");
         yield return new WaitForSeconds(1.0f);
         gameObject.layer = LayerMask.NameToLayer("Player");
-
     }
 
     //ダメージ管理
@@ -269,8 +280,14 @@ public class PlayerController : MonoBehaviour
     public void DeadEnd()
     {
         //やられボイス再生
-        AudioSource.PlayClipAtPoint(voiceSE2, animator.gameObject.transform.position);
+        //AudioSource.PlayClipAtPoint(voiceSE2, animator.gameObject.transform.position);
+        AudioSource.PlayClipAtPoint(voiceSE2, Camera.main.transform.position);
         animator.GetComponent<PlayerController>().rakumei.SetActive(true);
+    }
+
+    void GameOverText()
+    {
+
     }
 
     //武器の攻撃判定オン/オフ
@@ -284,14 +301,25 @@ public class PlayerController : MonoBehaviour
     {
         weaponCollider.enabled = false;
     }
+    //蹴り用の攻撃判定オン
+    public void WeaponCol2ON()
+    {
+        weaponCollider2.enabled = true;
+    }
 
-    //武器の軌跡オン/オフ
+    //蹴りの攻撃判定オフ
+    public void WeaponCol2OFF()
+    {
+        weaponCollider2.enabled = false;
+    }
+
+    //武器の軌跡オン
     public void TrailRendON()
     {
         trail.enabled = true;
     }
 
-    //武器の軌跡オン/オフ
+    //武器の軌跡オフ
     public void TrailRendOFF()
     {
         trail.enabled = false;

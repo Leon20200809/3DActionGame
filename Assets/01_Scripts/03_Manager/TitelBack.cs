@@ -11,7 +11,7 @@ public class TitelBack : MonoBehaviour
 
     public void OnStartButton()
     {
-        AudioSource.PlayClipAtPoint(reStartvoice, gameObject.transform.position);
+        AudioSource.PlayClipAtPoint(reStartvoice, Camera.main.transform.position);
 
         //コルーチンメソッド呼び出し
         StartCoroutine(Kankaku());

@@ -10,7 +10,7 @@ public class QuitGame : MonoBehaviour
 
     public void OnStartButton()
     {
-        AudioSource.PlayClipAtPoint(Exitvoice, gameObject.transform.position);
+        AudioSource.PlayClipAtPoint(Exitvoice, Camera.main.transform.position);
 
         //コルーチンメソッド呼び出し
         StartCoroutine(Kankaku());

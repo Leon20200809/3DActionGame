@@ -5,12 +5,23 @@ using UnityEngine;
 public class PlayerDodge : StateMachineBehaviour
 {
     public AudioClip voiceSE;
+    private PlayerController playerController;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<PlayerController>().moveSpeed = 0.01f;
-        AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
+        {
+            // PlayerControllerを取得していない場合には取得する
+            if (playerController == null)
+            {
+                playerController = animator.gameObject.GetComponent<PlayerController>();
+            }
+
+            //現在のSPからモーションに応じてSPを減らす
+            playerController.sp -= 300;
+
+            AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -22,7 +33,7 @@ public class PlayerDodge : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<PlayerController>().moveSpeed = 6f;
+
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
