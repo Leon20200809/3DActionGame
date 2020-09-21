@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
     public TrailRenderer trail;
 
     //敵オブジェクト識別用
-    //public GameObject target = GameObject.FindGameObjectWithTag("Enemy");
     public Transform target;
 
     //コンポーネント宣言
@@ -331,6 +330,10 @@ public class PlayerController : MonoBehaviour
     //簡易ロックオン
     public void LookAtTarget()
     {
+        GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
+        target = enemy.transform;
+
+
         if (target != null)
         {
             //ターゲットとの距離が3未満の場合オートロックオン
