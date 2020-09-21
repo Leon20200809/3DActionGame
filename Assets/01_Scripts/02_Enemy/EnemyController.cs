@@ -30,6 +30,13 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+        //タグでゲームオブジェクトを検索
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        //Transform型に変換
+        target = player.transform;
+        
+
         hp = maxHp;
         enemyUIManager.Init(this);
 
