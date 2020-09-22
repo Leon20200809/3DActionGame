@@ -41,11 +41,11 @@ public class PlayerController : MonoBehaviour
     public GameObject effectPrefab;
 
     //武器軌跡用
-    //public GameObject trailPrefab;
     public TrailRenderer trail;
 
     //敵オブジェクト識別用
-    public Transform target;
+    public Transform target = null;
+    GameObject enemy;
 
     //コンポーネント宣言
     Rigidbody rb;
@@ -331,19 +331,22 @@ public class PlayerController : MonoBehaviour
     public void LookAtTarget()
     {
         GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
-        target = enemy.transform;
-
-
-        if (target != null)
+        Debug.Log(enemy);
+        if (enemy != null)
         {
+            target = enemy.transform;
             //ターゲットとの距離が3未満の場合オートロックオン
             float distance = Vector3.Distance(transform.position, target.position);
             if (distance <= 3)
             {
                 transform.LookAt(target);
             }
+            else
+            {
+                target = null;
+            }
         }
-        
+
 
     }
 
@@ -359,7 +362,7 @@ public class PlayerController : MonoBehaviour
     public void IaiMove()
     {
         rb.velocity = Vector3.zero;
-        transform.DOLocalMove(transform.forward * 3.5f, 0.3f).SetRelative();
+        transform.DOLocalMove(transform.forward * 3f, 0.3f).SetRelative();
         rb.velocity = Vector3.zero;
     }
 
@@ -371,15 +374,24 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector3.zero;
     }
 
+
     //回避移動用
     public void DodgeMove()
     {
         rb.velocity = Vector3.zero;
-        transform.DOLocalMove(transform.forward * 4f, 0.8f).SetRelative();
+        transform.DOLocalMove(transform.forward * 3f, 0.5f).SetRelative();
         //無敵時間発生
         StartCoroutine(InvTime());
         rb.velocity = Vector3.zero;
     }
+
+    //吹き飛ばしテスト
+    public void KickHit()
+    {
+        //吹き飛ばし距離
+        rb.AddForce(Vector3.forward * hitBackPower, ForceMode.Impulse);
+    }
+
 
 
     public void GenerateEffect(GameObject other)

@@ -21,15 +21,20 @@ public class EnemyController : MonoBehaviour
     public int hp;
     public EnemyUIManager enemyUIManager;
 
-    //死亡判定
+    //死亡判定、死亡カウント用
+    GameObject destroyEnemyNum;
     bool isDead = false;
 
     //HIT、死亡エフェクト用
     public GameObject effectPrefab;
     public GameObject effectPrefab2;
 
+
     void Start()
     {
+
+        destroyEnemyNum = GameObject.Find("StageManager");
+
         //タグでゲームオブジェクトを検索
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
@@ -62,22 +67,12 @@ public class EnemyController : MonoBehaviour
 
             //目的地までの距離が保存されているremainingDistance
             animator.SetFloat("Distance", agent.remainingDistance);
-            //Debug.Log(agent.remainingDistance);
         }
 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
-
-        /*Damager damager = other.GetComponent<Damager>();
-        if (damager != null)
-        {
-
-            animator.SetTrigger("Attacked");
-            GenerateEffect(gameObject);
-        }*/
 
         //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
         if (other.gameObject.TryGetComponent(out Damager damager) && (other.CompareTag("Weapon")))
@@ -123,6 +118,8 @@ public class EnemyController : MonoBehaviour
     //Enemy削除用
     public void EnemyDestroy()
     {
+        //撃破カウント追加
+        destroyEnemyNum.GetComponent<StageManager>().DestroyEnemyNum();
         transform.DOScale(new Vector3(0, 0, 0) ,1.5f);
         Destroy(gameObject, 1.5f);
     }
