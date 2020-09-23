@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class PlayerIdle : StateMachineBehaviour
 {
+    private PlayerController playerController;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // PlayerControllerを取得していない場合には取得する
+        if (playerController == null)
+        {
+            playerController = animator.gameObject.GetComponent<PlayerController>();
+        }
+        //攻撃判定オフ
+        playerController.WeaponColOFF();
+
         animator.gameObject.GetComponent<PlayerController>().playerState = PlayerController.PlayerState.Normal;
     }
 

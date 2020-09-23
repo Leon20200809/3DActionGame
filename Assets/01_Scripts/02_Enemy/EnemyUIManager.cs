@@ -14,6 +14,13 @@ public class EnemyUIManager : MonoBehaviour
         hpSlider.maxValue = enemyManager.maxHp;
         hpSlider.value = enemyManager.maxHp;
     }
+
+    public void Init(EnemyControllerBoss enemyManager)
+    {
+        hpSlider.maxValue = enemyManager.maxHp;
+        hpSlider.value = enemyManager.maxHp;
+    }
+
     public void UpdateHP(int hp)
     {
         hpSlider.DOValue(hp, 0.5f);

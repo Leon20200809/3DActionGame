@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class PlayerUIManager : MonoBehaviour
 {
+
     //情報取得用
     public Slider hpSlider;
     public Slider spSlider;
@@ -24,12 +26,6 @@ public class PlayerUIManager : MonoBehaviour
         spSlider.DOValue(sp, 0.5f);
     }
 
-    //お薬更新
-    public void UpdateElxir()
-    {
-        elxirNum.ToString();
-    }
-
     //初期化
     public void Init(PlayerController playerManager)
     {
@@ -39,8 +35,6 @@ public class PlayerUIManager : MonoBehaviour
         spSlider.maxValue = playerManager.maxSp;
         spSlider.value = playerManager.maxSp;
 
-        //お薬所持数
-        //elxirNum.text = playerController.maxElixir.ToString();
     }
 
 }

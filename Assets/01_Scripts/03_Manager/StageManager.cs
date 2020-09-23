@@ -23,65 +23,63 @@ public class StageManager : MonoBehaviour
     //敵を倒した数
     public int destroyEnemyNum;
 
+    //BOSS用BGM再生
+    AudioSource bgm1;
+    AudioSource bgm2;
+
 
     // Start is called before the first frame update
     void Start()
     {
         appearEnemyNum = enemyList.Count;
+        bgm1 = GameObject.Find("BGM1").GetComponent<AudioSource>();
+        bgm2 = GameObject.Find("BGM2").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (appearEnemyNum == 0)
         {
-            //コルーチンメソッド呼び出し
-            StartCoroutine(Kankaku());
-
-            AppearEnemy(new Vector3(0f, 0f, 15f));
-            AppearEnemy(new Vector3(5f, 0f, 15f));
-            AppearEnemy(new Vector3(-5f, 0f, 15f));
+            AppearEnemy(new Vector3(0f, 0f, 10f));
+            AppearEnemy(new Vector3(5f, 0f, 10f));
+            AppearEnemy(new Vector3(-5f, 0f, 10f));
 
         }
 
         if (destroyEnemyNum == 3 && appearEnemyNum == 3)
         {
-            //コルーチンメソッド呼び出し
-            StartCoroutine(Kankaku());
-
-            AppearEnemy(new Vector3(0f, 0f, -15f));
-            AppearEnemy(new Vector3(5f, 0f, -13f));
-            AppearEnemy(new Vector3(-5f, 0f, -13f));
+            
+            AppearEnemy(new Vector3(0f, 0f, -10f));
+            AppearEnemy(new Vector3(5f, 0f, -10f));
+            AppearEnemy(new Vector3(-5f, 0f, -10f));
 
         }
 
         if (destroyEnemyNum == 5 && appearEnemyNum == 6)
         {
-            //コルーチンメソッド呼び出し
-            StartCoroutine(Kankaku());
 
-            AppearEnemy(new Vector3(10f, 0f, 15f));
-            AppearEnemy(new Vector3(10f, 0f, 18f));
-            AppearEnemy(new Vector3(-10f, 0f, -15f));
-            AppearEnemy(new Vector3(-10f, 0f, -18f));
+            AppearEnemy(new Vector3(10f, 0f, 8f));
+            AppearEnemy(new Vector3(10f, 0f, 10f));
+            AppearEnemy(new Vector3(-10f, 0f, -8f));
+            AppearEnemy(new Vector3(-10f, 0f, -10f));
 
         }
 
         if (destroyEnemyNum == 9 && appearEnemyNum == 10)
         {
-            //コルーチンメソッド呼び出し
-            StartCoroutine(Kankaku());
 
-            AppearEnemy(new Vector3(10f, 0f, 15f));
-            AppearEnemy(new Vector3(10f, 0f, 18f));
-            AppearEnemy(new Vector3(-10f, 0f, -15f));
-            AppearEnemy(new Vector3(-10f, 0f, -18f));
+            AppearEnemy(new Vector3(10f, 0f, 5f));
+            AppearEnemy(new Vector3(10f, 0f, 8f));
+            AppearEnemy(new Vector3(-10f, 0f, -5f));
+            AppearEnemy(new Vector3(-10f, 0f, -8f));
 
         }
 
         if (destroyEnemyNum == 14 && appearEnemyNum == 14)
         {
-            StartCoroutine(Kankaku());
+            bgm1.enabled = false;
+            bgm2.enabled = true;
 
             Debug.Log("ボス登場");
         }
@@ -123,6 +121,8 @@ public class StageManager : MonoBehaviour
         //(指定秒の間を設ける)
         yield return new WaitForSeconds(3f);
         Debug.Log("Wait");
+
+
 
     }
 }

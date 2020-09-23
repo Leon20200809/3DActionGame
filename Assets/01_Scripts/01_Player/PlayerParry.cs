@@ -17,6 +17,11 @@ public class PlayerParry : StateMachineBehaviour
         {
             playerController = animator.gameObject.GetComponent<PlayerController>();
         }
+        //攻撃判定オフ
+        playerController.WeaponColOFF();
+        //攻撃判定オフ
+        playerController.WeaponCol2OFF();
+
 
         //現在のSPからモーションに応じてSPを減らす
         playerController.sp -= 1100;

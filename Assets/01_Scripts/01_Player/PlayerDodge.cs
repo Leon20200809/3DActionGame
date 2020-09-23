@@ -20,6 +20,9 @@ public class PlayerDodge : StateMachineBehaviour
             //現在のSPからモーションに応じてSPを減らす
             playerController.sp -= 300;
 
+            //攻撃判定オフ
+            playerController.WeaponColOFF();
+
             AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
         }
     }

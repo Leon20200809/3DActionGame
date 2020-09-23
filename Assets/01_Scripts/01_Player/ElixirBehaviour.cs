@@ -26,6 +26,9 @@ public class ElixirBehaviour : StateMachineBehaviour
             playerUIManager = animator.gameObject.GetComponent<PlayerUIManager>();
         }
 
+        //攻撃判定オフ
+        playerController.WeaponColOFF();
+
         AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
 
     }
@@ -46,11 +49,11 @@ public class ElixirBehaviour : StateMachineBehaviour
             playerController.hp = playerController.maxHp;
         }
 
-        playerController.elixir--;
+        //playerController.elixir--;
         GameObject effect = Instantiate(effectPrefab, animator.gameObject.transform.position, Quaternion.identity);
         Destroy(effect, 1f);
         playerController.playerUIManager.UpdateHP(playerController.hp);
-        playerController.playerUIManager.UpdateElxir();
+
 
         AudioSource.PlayClipAtPoint(elxirSE, animator.gameObject.transform.position);
 

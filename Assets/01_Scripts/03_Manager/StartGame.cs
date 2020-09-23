@@ -30,7 +30,7 @@ public class StartGame : MonoBehaviour
     IEnumerator Kankaku() //コルーチンメソッド変数名Kankaku
     {
         //(1.5秒の間を設ける)
-        yield return new WaitForSeconds(2.2f);
+        yield return new WaitForSeconds(1.8f);
         Debug.Log("Wait");
 
         //ゲームシーンへ移行

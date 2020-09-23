@@ -22,7 +22,7 @@ public class PlayerAttackBehaviour_B : StateMachineBehaviour
         playerController.sp -= 800;
 
         //このモーション中は攻撃力を変化させる
-        playerController.damager.damage = 50;
+        playerController.damager.damage = 60;
         AudioSource.PlayClipAtPoint(weaponSE, animator.gameObject.transform.position);
         AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
     }

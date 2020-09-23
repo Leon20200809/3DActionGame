@@ -551,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe66a6f0eaf6fd14ab24f220e19ab8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 90
 --- !u!1 &1590138472790046376
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,10 +791,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.75
-  m_Height: 2
+  m_Radius: 0.39
+  m_Height: 1.4
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.68, z: 0}
 --- !u!195 &1590138472790046386
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -835,7 +835,7 @@ MonoBehaviour:
   maxHp: 150
   hp: 0
   enemyUIManager: {fileID: 1038071709081190219}
-  effectPrefab: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7,
+  effectPrefab: {fileID: 1150618658446862, guid: 816db0cf37bb11448bff9a1b25ac7367,
     type: 3}
   effectPrefab2: {fileID: 1714681308540598, guid: 5cbc537826220e04592d5a41a0dd985f,
     type: 3}

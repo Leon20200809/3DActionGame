@@ -17,9 +17,6 @@ public class TutorialPouUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startCanvas = GameObject.Find("StartCanvas");
-        startCanvas.GetComponent<Canvas>(); 
-
 
     }
 

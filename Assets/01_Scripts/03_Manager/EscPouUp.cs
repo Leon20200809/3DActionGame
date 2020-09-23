@@ -1,29 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class EscPouUp : MonoBehaviour
 {
-    public GameObject tutorialCanvas;
+    public EscCheckPouUp escCheckPouUp = null;
+    public Transform canvasTran;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        tutorialCanvas = GameObject.Find("TutorialCanvas");
-        tutorialCanvas.GetComponent<Canvas>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        //ゲーム中断用ポップアップ
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            tutorialCanvas.SetActive(true);
-            // ゲーム内時間の流れを停止
-            Time.timeScale = 0;
+            Debug.Log("Esc押した！");
+            if (escCheckPouUp == null)
+            {
+                Debug.Log("Esc押した22！");
 
+                escCheckPouUp = Instantiate(escCheckPouUp, canvasTran, false);
+            }
         }
     }
+
 }

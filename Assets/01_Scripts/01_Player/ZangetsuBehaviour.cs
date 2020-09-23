@@ -19,10 +19,10 @@ public class ZangetsuBehaviour : StateMachineBehaviour
             }
 
             //現在のSPからモーションに応じてSPを減らす
-            playerController.sp -= 500;
+            playerController.sp -= 600;
 
             //このモーション中は攻撃力を変化させる
-            playerController.damager.damage = 15;
+            playerController.damager.damage = 20;
             AudioSource.PlayClipAtPoint(weaponSE, animator.gameObject.transform.position);
             AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
         }

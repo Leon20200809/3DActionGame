@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     //お薬所持数
     public int maxElixir;
     public int elixir;
+    public Text ElixirLabel;
 
     //死亡判定
     bool isDead = false;
@@ -69,6 +71,9 @@ public class PlayerController : MonoBehaviour
         //初期ステータス設定
         hp = maxHp;
         sp = maxSp;
+        
+        elixir = maxElixir;
+        ElixirLabel.text = "" + elixir;
         playerUIManager.Init(this);
 
 
@@ -82,6 +87,8 @@ public class PlayerController : MonoBehaviour
 
         //武器の軌跡エフェクトオフ
         trail.enabled = false;
+
+        
 
     }
 
@@ -173,13 +180,14 @@ public class PlayerController : MonoBehaviour
         //お薬使用
         if (Input.GetButtonDown("elixir"))
         {
-            if (elixir >= 1 && hp < maxHp)
+            if (elixir > 0 && hp < maxHp)
             {
                 playerState = PlayerState.Attack;
                 
                 rb.velocity = Vector3.zero;
                 animator.SetTrigger("Elixir");
-                //playerUIManager.UpdateHP(hp);
+                elixir--;
+                ElixirLabel.text = "" + elixir;
 
             }
 
