@@ -32,7 +32,6 @@ public class PlayerAttackedBehaviour : StateMachineBehaviour
         playerController.TrailRendOFF();
 
         //ダメージSE、ボイス再生
-        AudioSource.PlayClipAtPoint(dmageSE, animator.gameObject.transform.position);
         AudioSource.PlayClipAtPoint(dmageVoice, animator.gameObject.transform.position);
 
 

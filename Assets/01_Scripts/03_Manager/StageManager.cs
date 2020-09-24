@@ -15,6 +15,7 @@ public class StageManager : MonoBehaviour
 
     //　出現させる敵
     public GameObject enemyPrefab;
+    public GameObject enemyPrefabBoss;
     public List<GameObject> enemyList = new List<GameObject>();
 
     //生成した数
@@ -26,6 +27,9 @@ public class StageManager : MonoBehaviour
     //BOSS用BGM再生
     AudioSource bgm1;
     AudioSource bgm2;
+
+    //ゲームクリアフラグ
+    public GameObject gameClear;
 
 
     // Start is called before the first frame update
@@ -44,6 +48,8 @@ public class StageManager : MonoBehaviour
             AppearEnemy(new Vector3(0f, 0f, 10f));
             AppearEnemy(new Vector3(5f, 0f, 10f));
             AppearEnemy(new Vector3(-5f, 0f, 10f));
+            Debug.Log("WAVE1");
+
 
         }
 
@@ -53,6 +59,8 @@ public class StageManager : MonoBehaviour
             AppearEnemy(new Vector3(0f, 0f, -10f));
             AppearEnemy(new Vector3(5f, 0f, -10f));
             AppearEnemy(new Vector3(-5f, 0f, -10f));
+            Debug.Log("WAVE2");
+
 
         }
 
@@ -63,6 +71,8 @@ public class StageManager : MonoBehaviour
             AppearEnemy(new Vector3(10f, 0f, 10f));
             AppearEnemy(new Vector3(-10f, 0f, -8f));
             AppearEnemy(new Vector3(-10f, 0f, -10f));
+            Debug.Log("WAVE3");
+
 
         }
 
@@ -73,6 +83,8 @@ public class StageManager : MonoBehaviour
             AppearEnemy(new Vector3(10f, 0f, 8f));
             AppearEnemy(new Vector3(-10f, 0f, -5f));
             AppearEnemy(new Vector3(-10f, 0f, -8f));
+            Debug.Log("WAVE4");
+
 
         }
 
@@ -80,9 +92,16 @@ public class StageManager : MonoBehaviour
         {
             bgm1.enabled = false;
             bgm2.enabled = true;
-
+            AppearEnemyBoss(new Vector3(0f, 0f, 0f));
             Debug.Log("ボス登場");
         }
+
+        if (destroyEnemyNum == 15)
+        {
+            gameClear.SetActive(true);
+            Debug.Log("ゲームクリア");
+        }
+
 
 
     }
@@ -92,6 +111,21 @@ public class StageManager : MonoBehaviour
     {
         //設定した敵のプレファブを生成
         Instantiate(enemyPrefab, apperPos, Quaternion.identity);
+
+        //エフェクト再生
+        GenerateEffect(gameObject);
+
+        //リストに追加
+        enemyList.Add(enemyPrefab);
+
+        //カウント追加
+        appearEnemyNum++;
+    }
+    //　ボス出現メソッド
+    void AppearEnemyBoss(Vector3 apperPos)
+    {
+        //設定した敵のプレファブを生成
+        Instantiate(enemyPrefabBoss, apperPos, Quaternion.identity);
 
         //エフェクト再生
         GenerateEffect(gameObject);

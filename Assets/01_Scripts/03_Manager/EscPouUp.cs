@@ -6,7 +6,8 @@ using DG.Tweening;
 
 public class EscPouUp : MonoBehaviour
 {
-    public EscCheckPouUp escCheckPouUp = null;
+    public EscCheckPouUp escCheckPouUpPrefab;
+    private EscCheckPouUp escCheckPouUp = null;
     public Transform canvasTran;
 
     void Update()
@@ -17,9 +18,7 @@ public class EscPouUp : MonoBehaviour
             Debug.Log("Esc押した！");
             if (escCheckPouUp == null)
             {
-                Debug.Log("Esc押した22！");
-
-                escCheckPouUp = Instantiate(escCheckPouUp, canvasTran, false);
+                escCheckPouUp = Instantiate(escCheckPouUpPrefab, canvasTran, false);
             }
         }
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyControllerBoss : MonoBehaviour
+public class BossEnemyController : MonoBehaviour
 {
     //追跡（攻撃）対象
     public Transform target;
@@ -28,6 +28,11 @@ public class EnemyControllerBoss : MonoBehaviour
     //HIT、死亡エフェクト用
     public GameObject effectPrefab;
     public GameObject effectPrefab2;
+
+    //被ダメージSE
+    public AudioClip dmageSE;
+
+    
 
 
     void Start()
@@ -93,6 +98,8 @@ public class EnemyControllerBoss : MonoBehaviour
 
             //エフェクト再生
             GenerateEffect(other.gameObject);
+            AudioSource.PlayClipAtPoint(dmageSE, transform.position);
+
 
             //ダメージ更新
             Damage(damager.damage); 
@@ -111,6 +118,7 @@ public class EnemyControllerBoss : MonoBehaviour
             agent.speed = 0f;
             hp = 0;
             animator.SetTrigger("Dead");
+
         }
         enemyUIManager.UpdateHP(hp);
     }
@@ -153,7 +161,7 @@ public class EnemyControllerBoss : MonoBehaviour
     {
         //死亡エフェクトを生成する
         GameObject effect2 = Instantiate(effectPrefab2, transform.position, Quaternion.identity);
-        Destroy(effect2, 0.5f);
+        Destroy(effect2, 5f);
 
     }
 }

@@ -16,8 +16,8 @@ public class PlayerIdle : StateMachineBehaviour
         }
         //攻撃判定オフ
         playerController.WeaponColOFF();
-
         animator.gameObject.GetComponent<PlayerController>().playerState = PlayerController.PlayerState.Normal;
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

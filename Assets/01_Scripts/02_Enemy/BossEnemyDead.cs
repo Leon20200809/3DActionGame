@@ -2,28 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackBehaviour_B : StateMachineBehaviour
+public class BossEnemyDead : StateMachineBehaviour
 {
-    public AudioClip weaponSE;
     public AudioClip voiceSE;
 
-    private PlayerController playerController;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // PlayerControllerを取得していない場合には取得する
-        if (playerController == null)
-        {
-            playerController = animator.gameObject.GetComponent<PlayerController>();
-        }
-
-        //現在のSPからモーションに応じてSPを減らす
-        playerController.sp -= 1000;
-
-        //このモーション中は攻撃力を変化させる
-        playerController.damager.damage = 90;
-        AudioSource.PlayClipAtPoint(weaponSE, animator.gameObject.transform.position);
+        //攻撃判定オフ
+        animator.GetComponent<BossEnemyController>().WeaponColOFF();
         AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
     }
 
@@ -33,14 +21,10 @@ public class PlayerAttackBehaviour_B : StateMachineBehaviour
     //    
     //}
 
-    //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //攻撃力を戻す
-        playerController.damager.damage = 10;
-
-        //食らい判定トリガーリセット
-        animator.ResetTrigger("Attacked");
+        
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

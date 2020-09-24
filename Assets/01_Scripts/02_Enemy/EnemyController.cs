@@ -29,6 +29,8 @@ public class EnemyController : MonoBehaviour
     public GameObject effectPrefab;
     public GameObject effectPrefab2;
 
+    //被ダメージSE
+    public AudioClip dmageSE;
 
     void Start()
     {
@@ -93,6 +95,8 @@ public class EnemyController : MonoBehaviour
 
             //エフェクト再生
             GenerateEffect(other.gameObject);
+            AudioSource.PlayClipAtPoint(dmageSE, transform.position);
+
 
             //ダメージ更新
             Damage(damager.damage); 

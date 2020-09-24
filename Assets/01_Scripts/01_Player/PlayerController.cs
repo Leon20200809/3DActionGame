@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour
     //HITエフェクト用
     public GameObject effectPrefab;
 
+    //被ダメージSE
+    public AudioClip dmageSE;
+
+
     //武器軌跡用
     public TrailRenderer trail;
 
@@ -114,6 +118,7 @@ public class PlayerController : MonoBehaviour
         //通常攻撃アクション入力
         if (Input.GetButtonDown("Fire1"))
         {
+            //移動制限
             playerState = PlayerState.Attack;
             rb.velocity = Vector3.zero;
             LookAtTarget();
@@ -126,11 +131,16 @@ public class PlayerController : MonoBehaviour
 
             if (sp >= 500)
             {
+                //移動制限
                 playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
                 rb.velocity = Vector3.zero;
                 LookAtTarget();
                 animator.SetTrigger("Attack_H");
+                if(sp >= 1000)
+                {
+                    animator.SetTrigger("");
+                }
             }
             
         }
@@ -140,6 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             if (sp >= 1100)
             {
+                //移動制限
                 playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
                 rb.velocity = Vector3.zero;
@@ -154,6 +165,7 @@ public class PlayerController : MonoBehaviour
         {
             if (sp >= 300)
             {
+                //移動制限
                 playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
                 rb.velocity = Vector3.zero;
@@ -182,6 +194,7 @@ public class PlayerController : MonoBehaviour
         {
             if (elixir > 0 && hp < maxHp)
             {
+                //移動制限
                 playerState = PlayerState.Attack;
                 
                 rb.velocity = Vector3.zero;
@@ -242,6 +255,10 @@ public class PlayerController : MonoBehaviour
             //食らいモーション再生
             animator.SetTrigger("Attacked");
 
+            //移動制限
+            playerState = PlayerState.Attack;
+
+
             //無敵時間発生
             StartCoroutine(InvTime());
 
@@ -255,6 +272,8 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(distination * knockBackPower, ForceMode.VelocityChange);
 
             //エフェクト再生とダメージ値をＨＰに反映
+            AudioSource.PlayClipAtPoint(dmageSE, transform.position);
+
             GenerateEffect(other.gameObject);
             Damage(damager.damage);
 
@@ -265,7 +284,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator InvTime()
     {
         gameObject.layer = LayerMask.NameToLayer("Invincible");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.7f);
         gameObject.layer = LayerMask.NameToLayer("Player");
     }
 
