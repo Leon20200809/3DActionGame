@@ -61,8 +61,8 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Attack_H
     m_EventTreshold: 0
-  - m_ConditionMode: 6
-    m_ConditionEvent: SP
+  - m_ConditionMode: 1
+    m_ConditionEvent: Iai
     m_EventTreshold: 1000
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2112007458392161043}
@@ -1151,6 +1151,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Attack_H
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: Iai
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2112007458392161043}

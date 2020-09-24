@@ -19,11 +19,10 @@ public class PlayerAttackedBehaviour : StateMachineBehaviour
             playerController = animator.gameObject.GetComponent<PlayerController>();
         }
 
-        //攻撃判定トリガーリセット
-        animator.ResetTrigger("Attack");
-
         //Ｈ攻撃判定トリガーリセット
-        //animator.ResetTrigger("Attack_H");
+        animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Attack_H");
+        animator.ResetTrigger("Iai");
 
         //攻撃判定オフ
         playerController.WeaponColOFF();

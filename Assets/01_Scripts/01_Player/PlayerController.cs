@@ -131,15 +131,25 @@ public class PlayerController : MonoBehaviour
 
             if (sp >= 500)
             {
-                //移動制限
-                playerState = PlayerState.Attack;
-                playerUIManager.UpdateSP(sp);
-                rb.velocity = Vector3.zero;
-                LookAtTarget();
-                animator.SetTrigger("Attack_H");
+                
                 if(sp >= 1000)
                 {
-                    animator.SetTrigger("");
+                    //移動制限
+                    playerState = PlayerState.Attack;
+                    playerUIManager.UpdateSP(sp);
+                    rb.velocity = Vector3.zero;
+                    LookAtTarget();
+                    animator.SetTrigger("Iai");
+                    animator.SetTrigger("Attack_H");
+                }
+                else
+                {
+                    //移動制限
+                    playerState = PlayerState.Attack;
+                    playerUIManager.UpdateSP(sp);
+                    rb.velocity = Vector3.zero;
+                    LookAtTarget();
+                    animator.SetTrigger("Attack_H");
                 }
             }
             
