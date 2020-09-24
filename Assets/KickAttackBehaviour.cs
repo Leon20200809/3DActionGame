@@ -2,40 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZangetsuBehaviour : StateMachineBehaviour
+public class KickAttackBehaviour : StateMachineBehaviour
 {
     public AudioClip weaponSE;
     public AudioClip voiceSE;
+    public AudioClip hitSE;
+
     private PlayerController playerController;
+    Collider kickCollider;
+
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        AudioSource.PlayClipAtPoint(weaponSE, animator.gameObject.transform.position);
+        AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
+
+        // PlayerControllerを取得していない場合には取得する
+        if (playerController == null)
         {
-            // PlayerControllerを取得していない場合には取得する
-            if (playerController == null)
-            {
-                playerController = animator.gameObject.GetComponent<PlayerController>();
-            }
+            playerController = animator.gameObject.GetComponent<PlayerController>();
 
-            //現在のSPからモーションに応じてSPを減らす
-            playerController.sp -= 500;
+        }
+    }   
 
-            //このモーション中は攻撃力を変化させる
-            playerController.damager.damage = 20;
-            AudioSource.PlayClipAtPoint(weaponSE, animator.gameObject.transform.position);
-            AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
+    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("当たった？");
         }
     }
 
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //攻撃力を戻す
-        playerController.damager.damage = 10;
-
-        //食らい判定トリガーリセット
-        animator.ResetTrigger("Attacked");
 
     }
 

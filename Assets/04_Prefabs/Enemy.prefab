@@ -831,7 +831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weaponCollider: {fileID: 1590138472790046375}
-  knockBackPower: 20
+  knockBackPower: 30
   maxHp: 150
   hp: 0
   enemyUIManager: {fileID: 1038071709081190219}

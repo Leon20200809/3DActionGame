@@ -5,12 +5,12 @@ using UnityEngine.AI;
 
 public class EnemyAttackedBehaviour : StateMachineBehaviour
 {
-    public AudioClip damageSE;
+    //public AudioClip damageSE;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //食らい判定トリガーリセット
-        //animator.ResetTrigger("Attacked");
+        animator.ResetTrigger("Attacked");
 
         //攻撃判定オフ
         animator.GetComponent<EnemyController>().WeaponColOFF();
@@ -18,7 +18,7 @@ public class EnemyAttackedBehaviour : StateMachineBehaviour
 
         //モーション中は移動速度を0ｆにする
         animator.GetComponent<NavMeshAgent>().speed = 0f;
-        AudioSource.PlayClipAtPoint(damageSE, animator.gameObject.transform.position);
+        //AudioSource.PlayClipAtPoint(damageSE, animator.gameObject.transform.position);
 
     }
 

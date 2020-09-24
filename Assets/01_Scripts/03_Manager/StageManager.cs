@@ -56,9 +56,9 @@ public class StageManager : MonoBehaviour
         if (destroyEnemyNum == 3 && appearEnemyNum == 3)
         {
             
-            AppearEnemy(new Vector3(0f, 0f, -10f));
-            AppearEnemy(new Vector3(5f, 0f, -10f));
-            AppearEnemy(new Vector3(-5f, 0f, -10f));
+            AppearEnemy(new Vector3(0f, 0f, -5f));
+            AppearEnemy(new Vector3(5f, 0f, -5f));
+            AppearEnemy(new Vector3(-5f, 0f, -5f));
             Debug.Log("WAVE2");
 
 
@@ -67,10 +67,10 @@ public class StageManager : MonoBehaviour
         if (destroyEnemyNum == 5 && appearEnemyNum == 6)
         {
 
-            AppearEnemy(new Vector3(10f, 0f, 8f));
-            AppearEnemy(new Vector3(10f, 0f, 10f));
-            AppearEnemy(new Vector3(-10f, 0f, -8f));
-            AppearEnemy(new Vector3(-10f, 0f, -10f));
+            AppearEnemy(new Vector3(7f, 0f, 8f));
+            AppearEnemy(new Vector3(7f, 0f, 10f));
+            AppearEnemy(new Vector3(-5f, 0f, -8f));
+            AppearEnemy(new Vector3(-5f, 0f, -10f));
             Debug.Log("WAVE3");
 
 
@@ -79,10 +79,10 @@ public class StageManager : MonoBehaviour
         if (destroyEnemyNum == 9 && appearEnemyNum == 10)
         {
 
-            AppearEnemy(new Vector3(10f, 0f, 5f));
-            AppearEnemy(new Vector3(10f, 0f, 8f));
-            AppearEnemy(new Vector3(-10f, 0f, -5f));
-            AppearEnemy(new Vector3(-10f, 0f, -8f));
+            AppearEnemy(new Vector3(5f, 0f, 5f));
+            AppearEnemy(new Vector3(5f, 0f, 8f));
+            AppearEnemy(new Vector3(-6f, 0f, -5f));
+            AppearEnemy(new Vector3(-6f, 0f, -8f));
             Debug.Log("WAVE4");
 
 
@@ -102,11 +102,9 @@ public class StageManager : MonoBehaviour
             Debug.Log("ゲームクリア");
         }
 
-
-
     }
 
-    //　敵出現メソッド
+    //敵出現メソッド
     void AppearEnemy(Vector3 apperPos)
     {
         //設定した敵のプレファブを生成
@@ -121,7 +119,7 @@ public class StageManager : MonoBehaviour
         //カウント追加
         appearEnemyNum++;
     }
-    //　ボス出現メソッド
+    //ボス出現メソッド
     void AppearEnemyBoss(Vector3 apperPos)
     {
         //設定した敵のプレファブを生成

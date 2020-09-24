@@ -134,7 +134,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Distance
-    m_EventTreshold: 10
+    m_EventTreshold: 25
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6107182318722506164}
   m_Solo: 0
@@ -316,7 +316,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.875
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -385,19 +385,19 @@ AnimatorStateMachine:
     m_Position: {x: 0, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7900871727537167144}
-    m_Position: {x: 490, y: 220, z: 0}
+    m_Position: {x: 590, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -548124983405288954}
     m_Position: {x: 160, y: 410, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7308285369276630953}
-    m_Position: {x: 270, y: 140, z: 0}
+    m_Position: {x: 660, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1153664250827800467}
     m_Position: {x: 270, y: -100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7964970971840318965}
-    m_Position: {x: 510, y: 10, z: 0}
+    m_Position: {x: 660, y: -120, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -420,7 +420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b3b6a8ead807645b135f626069ac52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSE: {fileID: 8300000, guid: 4ee1b056c936d664c91da4a022aa783f, type: 3}
 --- !u!1102 &-1153664250827800467
 AnimatorState:
   serializedVersion: 5
@@ -683,7 +682,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.6052631
   m_HasExitTime: 0
@@ -770,7 +769,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: Distance
-    m_EventTreshold: 15
+    m_EventTreshold: 25
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7900871727537167144}
   m_Solo: 0
@@ -797,7 +796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b3b6a8ead807645b135f626069ac52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSE: {fileID: 8300000, guid: 4ee1b056c936d664c91da4a022aa783f, type: 3}
 --- !u!1101 &7974639031006140535
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -815,10 +813,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.6052631
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1

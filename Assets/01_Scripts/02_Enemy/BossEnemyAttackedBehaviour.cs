@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class BossEnemyAttackedBehaviour : StateMachineBehaviour
 {
-    public AudioClip damageSE;
+    //public AudioClip damageSE;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -18,7 +18,7 @@ public class BossEnemyAttackedBehaviour : StateMachineBehaviour
 
         //モーション中は移動速度を0ｆにする
         animator.GetComponent<NavMeshAgent>().speed = 0f;
-        AudioSource.PlayClipAtPoint(damageSE, animator.gameObject.transform.position);
+        //AudioSource.PlayClipAtPoint(damageSE, animator.gameObject.transform.position);
 
     }
 
