@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class PlayerUIManager : MonoBehaviour
@@ -13,6 +12,7 @@ public class PlayerUIManager : MonoBehaviour
     public Slider spSlider;
     public Text elxirNum;
     public PlayerController playerController;
+    public Text txtElixir;
 
     //HP更新
     public void UpdateHP(int hp)
@@ -20,13 +20,19 @@ public class PlayerUIManager : MonoBehaviour
         hpSlider.DOValue(hp, 0.5f);
     }
 
-    //SP更新
+    /// <summary>
+    /// 現SPを更新しＵＩへ反映
+    /// </summary>
+    /// <param name="sp"></param>
     public void UpdateSP(int sp)
     {
         spSlider.DOValue(sp, 0.5f);
     }
 
-    //初期化
+    /// <summary>
+    /// プレイヤーステータスの更新
+    /// </summary>
+    /// <param name="playerManager">プレイヤーマネージャー</param>
     public void Init(PlayerController playerManager)
     {
         //HP,SP
@@ -35,6 +41,16 @@ public class PlayerUIManager : MonoBehaviour
         spSlider.maxValue = playerManager.maxSp;
         spSlider.value = playerManager.maxSp;
 
+    }
+
+    ///<summary>
+    ///お薬所持数の更新
+    ///</summary>
+    ///<param name="elixirCount">薬の所持数</param>
+    ///
+    public void UpdateDisplayElixirCount(int elixirCount)
+    {
+        txtElixir.text = elixirCount.ToString();
     }
 
 }

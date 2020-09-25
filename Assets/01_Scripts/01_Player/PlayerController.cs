@@ -77,9 +77,8 @@ public class PlayerController : MonoBehaviour
         sp = maxSp;
         
         elixir = maxElixir;
-        ElixirLabel.text = "" + elixir;
         playerUIManager.Init(this);
-
+        playerUIManager.UpdateDisplayElixirCount(elixir);
 
         //コンポーネント取得
         rb = GetComponent<Rigidbody>();
@@ -91,9 +90,6 @@ public class PlayerController : MonoBehaviour
 
         //武器の軌跡エフェクトオフ
         trail.enabled = false;
-
-        
-
     }
 
     void Update()
@@ -179,9 +175,9 @@ public class PlayerController : MonoBehaviour
                 playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
                 rb.velocity = Vector3.zero;
-                animator.SetTrigger("Dodge");
                 Vector3 direction = transform.position + new Vector3(x, 0, z) * moveSpeed;
                 transform.LookAt(direction);
+                animator.SetTrigger("Dodge");
             }
             
         }
@@ -206,7 +202,6 @@ public class PlayerController : MonoBehaviour
             {
                 //移動制限
                 playerState = PlayerState.Attack;
-                
                 rb.velocity = Vector3.zero;
                 animator.SetTrigger("Elixir");
                 elixir--;
@@ -306,9 +301,11 @@ public class PlayerController : MonoBehaviour
         {
             hp = 0;
             isDead = true;
-            animator.SetTrigger("Dead");
+            x = 0;
+            z = 0;
             rb.velocity = Vector3.zero;
-            
+            animator.SetTrigger("Dead");
+
         }
         playerUIManager.UpdateHP(hp);
         Debug.Log("Player残りHP：" + hp);
@@ -321,11 +318,6 @@ public class PlayerController : MonoBehaviour
         //やられボイス再生
         AudioSource.PlayClipAtPoint(voiceSE2, Camera.main.transform.position);
         animator.GetComponent<PlayerController>().rakumei.SetActive(true);
-    }
-
-    void GameOverText()
-    {
-
     }
 
     //武器の攻撃判定オン/オフ
@@ -383,7 +375,6 @@ public class PlayerController : MonoBehaviour
                 target = null;
             }
         }
-
 
     }
 

@@ -107,7 +107,10 @@ public class BossEnemyController : MonoBehaviour
     }
 
 
-    //ダメージ管理
+    /// <summary>
+    /// ダメージ判定処理
+    /// </summary>
+    /// <param name="damage"></param>
     void Damage(int damage)
     {
         hp -= damage;
@@ -123,7 +126,9 @@ public class BossEnemyController : MonoBehaviour
         enemyUIManager.UpdateHP(hp);
     }
 
-    //Enemy削除用
+    /// <summary>
+    /// 敵撃破時の処理
+    /// </summary>
     public void EnemyDestroy()
     {
         //撃破カウント追加

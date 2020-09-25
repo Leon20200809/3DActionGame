@@ -9,7 +9,6 @@ public class ElixirBehaviour : StateMachineBehaviour
     public GameObject effectPrefab;
 
     private PlayerController playerController;
-    private PlayerUIManager playerUIManager;
 
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -19,11 +18,6 @@ public class ElixirBehaviour : StateMachineBehaviour
         if (playerController == null)
         {
             playerController = animator.gameObject.GetComponent<PlayerController>();
-        }
-
-        if (playerController == null)
-        {
-            playerUIManager = animator.gameObject.GetComponent<PlayerUIManager>();
         }
 
         //攻撃判定オフ
@@ -49,7 +43,6 @@ public class ElixirBehaviour : StateMachineBehaviour
             playerController.hp = playerController.maxHp;
         }
 
-        //playerController.elixir--;
         GameObject effect = Instantiate(effectPrefab, animator.gameObject.transform.position, Quaternion.identity);
         Destroy(effect, 1f);
         playerController.playerUIManager.UpdateHP(playerController.hp);

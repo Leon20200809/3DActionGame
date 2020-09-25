@@ -45,7 +45,7 @@ public class PlayerAttackedBehaviour : StateMachineBehaviour
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        playerController.playerState = PlayerController.PlayerState.Normal;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

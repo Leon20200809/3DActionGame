@@ -49,43 +49,32 @@ public class StageManager : MonoBehaviour
             AppearEnemy(new Vector3(5f, 0f, 10f));
             AppearEnemy(new Vector3(-5f, 0f, 10f));
             Debug.Log("WAVE1");
-
-
         }
 
         if (destroyEnemyNum == 3 && appearEnemyNum == 3)
         {
-            
             AppearEnemy(new Vector3(0f, 0f, -5f));
             AppearEnemy(new Vector3(5f, 0f, -5f));
             AppearEnemy(new Vector3(-5f, 0f, -5f));
             Debug.Log("WAVE2");
-
-
         }
 
         if (destroyEnemyNum == 5 && appearEnemyNum == 6)
         {
-
             AppearEnemy(new Vector3(7f, 0f, 8f));
             AppearEnemy(new Vector3(7f, 0f, 10f));
             AppearEnemy(new Vector3(-5f, 0f, -8f));
             AppearEnemy(new Vector3(-5f, 0f, -10f));
             Debug.Log("WAVE3");
-
-
         }
 
-        if (destroyEnemyNum == 9 && appearEnemyNum == 10)
+        if (destroyEnemyNum == 10 && appearEnemyNum == 10)
         {
-
-            AppearEnemy(new Vector3(5f, 0f, 5f));
+            AppearEnemy(new Vector3(5f, 0f, 10f));
             AppearEnemy(new Vector3(5f, 0f, 8f));
-            AppearEnemy(new Vector3(-6f, 0f, -5f));
-            AppearEnemy(new Vector3(-6f, 0f, -8f));
+            AppearEnemy(new Vector3(-9f, 0f, -5f));
+            AppearEnemy(new Vector3(-9f, 0f, -8f));
             Debug.Log("WAVE4");
-
-
         }
 
         if (destroyEnemyNum == 14 && appearEnemyNum == 14)
@@ -104,17 +93,20 @@ public class StageManager : MonoBehaviour
 
     }
 
-    //敵出現メソッド
+    /// <summary>
+    /// 敵出現メソッド
+    /// </summary>
+    /// <param name="apperPos">出現位置ワールド座標</param>
     void AppearEnemy(Vector3 apperPos)
     {
         //設定した敵のプレファブを生成
-        Instantiate(enemyPrefab, apperPos, Quaternion.identity);
+        GameObject enemyClone = Instantiate(enemyPrefab, apperPos, Quaternion.identity);
 
         //エフェクト再生
-        GenerateEffect(gameObject);
+        GenerateEffect(enemyClone);
 
         //リストに追加
-        enemyList.Add(enemyPrefab);
+        enemyList.Add(enemyClone);
 
         //カウント追加
         appearEnemyNum++;
@@ -140,11 +132,15 @@ public class StageManager : MonoBehaviour
         destroyEnemyNum++;
     }
 
+    /// <summary>
+    /// 敵出現時のエフェクト生成⇒削除
+    /// </summary>
+    /// <param name="other"></param>
     void GenerateEffect(GameObject other)
     {
         //出現時エフェクトを生成する
         AudioSource.PlayClipAtPoint(appearSE, Camera.main.transform.position, 0.2f);
-        GameObject effect = Instantiate(appearteftPrefab, transform.position, Quaternion.identity);
+        GameObject effect = Instantiate(appearteftPrefab, other.transform.position, Quaternion.identity);
         Destroy(effect, 1f);
     }
 
