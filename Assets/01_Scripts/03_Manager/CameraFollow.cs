@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    GameObject targetObj;
+    public GameObject targetObj;
     Vector3 targetPos;
     public float mouseSensitivity;
 

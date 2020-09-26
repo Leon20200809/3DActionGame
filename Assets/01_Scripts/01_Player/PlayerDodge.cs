@@ -24,6 +24,9 @@ public class PlayerDodge : StateMachineBehaviour
             playerController.WeaponColOFF();
 
             AudioSource.PlayClipAtPoint(voiceSE, animator.gameObject.transform.position);
+
+            playerController.playerState = PlayerController.PlayerState.Attack;
+
         }
     }
 
@@ -36,6 +39,7 @@ public class PlayerDodge : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        playerController.playerState = PlayerController.PlayerState.Normal;
 
     }
 

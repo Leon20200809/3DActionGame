@@ -87,6 +87,10 @@ public class EnemyController : MonoBehaviour
         //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
         if (other.gameObject.TryGetComponent(out Damager damager) && (other.CompareTag("Weapon")))
         {
+            //
+            float culs = agent.speed;
+            agent.speed = 0f;
+
             //食らいモーション再生
             animator.SetTrigger("Attacked");
 
@@ -97,6 +101,11 @@ public class EnemyController : MonoBehaviour
             // 自分の位置と接触してきたオブジェクトの位置とを計算して、距離と方向を出して正規化(速度ベクトルを算出)
             Vector3 distination = (transform.position - other.transform.position).normalized;
 
+            if (damager.isKnokcBack == true)
+            {
+                knockBackPower *= 1f;
+            }
+
             //ノックバック距離
             rb.AddForce(distination * knockBackPower, ForceMode.VelocityChange);
             
@@ -105,7 +114,11 @@ public class EnemyController : MonoBehaviour
             AudioSource.PlayClipAtPoint(dmageSE, transform.position);
 
             //ダメージ更新
-            Damage(damager.damage); 
+            Damage(damager.damage);
+
+            //
+            agent.speed = culs;
+
         }
     }
 

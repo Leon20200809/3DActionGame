@@ -6,6 +6,7 @@ public class Damager : MonoBehaviour
 {
     //ダメージ管理用
     public int damage;
+    public bool isKnokcBack = false;
 
 
     // Start is called before the first frame update

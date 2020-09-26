@@ -264,6 +264,7 @@ MonoBehaviour:
   weaponSE: {fileID: 8300000, guid: 3fd071efe3a4dc840adb2e8d1980ebbd, type: 3}
   voiceSE: {fileID: 8300000, guid: 09dcd2f585c6d4d7f83a1ab41b8fd008, type: 3}
   hitSE: {fileID: 8300000, guid: bce9e620a7186594385ab689879c03d5, type: 3}
+  kickCollider: {fileID: 0}
 --- !u!1101 &-6222911784521616668
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

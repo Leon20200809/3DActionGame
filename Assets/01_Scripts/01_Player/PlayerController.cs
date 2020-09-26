@@ -175,8 +175,8 @@ public class PlayerController : MonoBehaviour
                 playerState = PlayerState.Attack;
                 playerUIManager.UpdateSP(sp);
                 rb.velocity = Vector3.zero;
-                Vector3 direction = transform.position + new Vector3(x, 0, z) * moveSpeed;
-                transform.LookAt(direction);
+                //Vector3 direction = transform.position + new Vector3(x, 0, z) * moveSpeed;
+                //transform.LookAt(direction);
                 animator.SetTrigger("Dodge");
             }
             

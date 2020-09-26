@@ -44,6 +44,7 @@ public class ElixirBehaviour : StateMachineBehaviour
         }
 
         GameObject effect = Instantiate(effectPrefab, animator.gameObject.transform.position, Quaternion.identity);
+        //GameObject effect = Instantiate(effectPrefab, new Vector3(playerController., 1.0f, playerController.transform), Quaternion.identity);
         Destroy(effect, 1f);
         playerController.playerUIManager.UpdateHP(playerController.hp);
 

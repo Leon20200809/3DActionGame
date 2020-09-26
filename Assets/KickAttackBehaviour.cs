@@ -9,7 +9,7 @@ public class KickAttackBehaviour : StateMachineBehaviour
     public AudioClip hitSE;
 
     private PlayerController playerController;
-    Collider kickCollider;
+    public Collider kickCollider;
 
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
