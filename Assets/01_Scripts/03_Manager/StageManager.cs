@@ -46,34 +46,34 @@ public class StageManager : MonoBehaviour
         if (appearEnemyNum == 0)
         {
             AppearEnemy(new Vector3(0f, 0f, 10f));
-            AppearEnemy(new Vector3(5f, 0f, 10f));
-            AppearEnemy(new Vector3(-5f, 0f, 10f));
+            AppearEnemy(new Vector3(8f, 0f, 10f));
+            AppearEnemy(new Vector3(-8f, 0f, 10f));
             Debug.Log("WAVE1");
         }
 
         if (destroyEnemyNum == 3 && appearEnemyNum == 3)
         {
             AppearEnemy(new Vector3(0f, 0f, -5f));
-            AppearEnemy(new Vector3(5f, 0f, -5f));
-            AppearEnemy(new Vector3(-5f, 0f, -5f));
+            AppearEnemy(new Vector3(10f, 0f, -5f));
+            AppearEnemy(new Vector3(-10f, 0f, -5f));
             Debug.Log("WAVE2");
         }
 
         if (destroyEnemyNum == 5 && appearEnemyNum == 6)
         {
-            AppearEnemy(new Vector3(7f, 0f, 8f));
+            AppearEnemy(new Vector3(7f, 0f, 0f));
             AppearEnemy(new Vector3(7f, 0f, 10f));
-            AppearEnemy(new Vector3(-5f, 0f, -8f));
-            AppearEnemy(new Vector3(-5f, 0f, -10f));
+            AppearEnemy(new Vector3(-15f, 0f, -0f));
+            AppearEnemy(new Vector3(-15f, 0f, -10f));
             Debug.Log("WAVE3");
         }
 
         if (destroyEnemyNum == 10 && appearEnemyNum == 10)
         {
             AppearEnemy(new Vector3(5f, 0f, 10f));
-            AppearEnemy(new Vector3(5f, 0f, 8f));
+            AppearEnemy(new Vector3(5f, 0f, 0f));
             AppearEnemy(new Vector3(-9f, 0f, -5f));
-            AppearEnemy(new Vector3(-9f, 0f, -8f));
+            AppearEnemy(new Vector3(-9f, 0f, -10f));
             Debug.Log("WAVE4");
         }
 
@@ -87,8 +87,8 @@ public class StageManager : MonoBehaviour
 
         if (destroyEnemyNum == 15)
         {
-            gameClear.SetActive(true);
             Debug.Log("ゲームクリア");
+            StartCoroutine(Kankaku());
         }
 
     }
@@ -111,17 +111,20 @@ public class StageManager : MonoBehaviour
         //カウント追加
         appearEnemyNum++;
     }
-    //ボス出現メソッド
+    /// <summary>
+    /// ボス出現メソッド
+    /// </summary>
+    /// <param name="apperPos"></param>
     void AppearEnemyBoss(Vector3 apperPos)
     {
         //設定した敵のプレファブを生成
-        Instantiate(enemyPrefabBoss, apperPos, Quaternion.identity);
+        GameObject enemyClone = Instantiate(enemyPrefabBoss, apperPos, Quaternion.identity);
 
         //エフェクト再生
-        GenerateEffect(gameObject);
+        GenerateEffect(enemyClone);
 
         //リストに追加
-        enemyList.Add(enemyPrefab);
+        enemyList.Add(enemyClone);
 
         //カウント追加
         appearEnemyNum++;
@@ -141,16 +144,14 @@ public class StageManager : MonoBehaviour
         //出現時エフェクトを生成する
         AudioSource.PlayClipAtPoint(appearSE, Camera.main.transform.position, 0.2f);
         GameObject effect = Instantiate(appearteftPrefab, other.transform.position, Quaternion.identity);
-        Destroy(effect, 1f);
+        Destroy(effect, 1.5f);
     }
 
     IEnumerator Kankaku() //コルーチンメソッド変数名Kankaku
     {
         //(指定秒の間を設ける)
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("Wait");
-
-
-
+        gameClear.SetActive(true);
     }
 }
