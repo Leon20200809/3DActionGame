@@ -32,6 +32,9 @@ public class EnemyController : MonoBehaviour
     //被ダメージSE
     public AudioClip dmageSE;
 
+    //乱数用
+    public float randomAttack;
+
     void Start()
     {
 
@@ -43,7 +46,6 @@ public class EnemyController : MonoBehaviour
         //Transform型に変換
         target = player.transform;
         
-
         hp = maxHp;
         enemyUIManager.Init(this);
 
@@ -69,6 +71,12 @@ public class EnemyController : MonoBehaviour
 
             //目的地までの距離が保存されているremainingDistance
             animator.SetFloat("Distance", agent.remainingDistance);
+
+            if (agent.remainingDistance < 1.5f)
+            {
+                RandomAttackIndex();
+            }
+                        
         }
 
     }
@@ -92,26 +100,25 @@ public class EnemyController : MonoBehaviour
             //ノックバック距離
             rb.AddForce(distination * knockBackPower, ForceMode.VelocityChange);
             
-
             //エフェクト再生
             GenerateEffect(other.gameObject);
             AudioSource.PlayClipAtPoint(dmageSE, transform.position);
-
 
             //ダメージ更新
             Damage(damager.damage); 
         }
     }
 
-
-    //ダメージ管理
+    /// <summary>
+    /// ダメージ管理
+    /// </summary>
+    /// <param name="damage">ダメージ値</param>
     void Damage(int damage)
     {
         hp -= damage;
         if (hp <= 0)
         {
             isDead = true;
-            //Enemy撃破時の処理
             agent.speed = 0f;
             hp = 0;
             animator.SetTrigger("Dead");
@@ -119,45 +126,69 @@ public class EnemyController : MonoBehaviour
         enemyUIManager.UpdateHP(hp);
     }
 
-    //Enemy削除用
+
+    /// <summary>
+    /// Enemy削除、撃破カウント追加
+    /// </summary>
     public void EnemyDestroy()
     {
-        //撃破カウント追加
         destroyEnemyNum.GetComponent<StageManager>().DestroyEnemyNum();
         transform.DOScale(new Vector3(0, 0, 0) ,1.5f);
         Destroy(gameObject, 1.5f);
     }
 
-    //武器の攻撃判定オン/オフ
+    /// <summary>
+    /// 武器の攻撃判定オン
+    /// </summary>
     public void WeaponColON()
     {
         weaponCollider.enabled = true;
     }
 
-    //武器の攻撃判定オン/オフ
+    /// <summary>
+    /// 武器の攻撃判定オフ
+    /// </summary>
     public void WeaponColOFF()
     {
         weaponCollider.enabled = false;
     }
 
-    //簡易ロックオン
+    /// <summary>
+    /// 簡易ロックオン
+    /// </summary>
     public void LookAtTarget()
     {
         transform.LookAt(target);
     }
 
+    /// <summary>
+    /// 食らいエフェクトを生成する
+    /// </summary>
+    /// <param name="other">当たった位置</param>
     public void GenerateEffect(GameObject other)
     {
-        //食らいエフェクトを生成する
         GameObject effect = Instantiate(effectPrefab, other.transform.position, Quaternion.identity);
         Destroy(effect, 1f);
     }
 
+    /// <summary>
+    /// 死亡エフェクトを生成する
+    /// </summary>
+    /// <param name="other">死んだ場所</param>
     public void GenerateEffect2(GameObject other)
     {
-        //死亡エフェクトを生成する
         GameObject effect2 = Instantiate(effectPrefab2, transform.position, Quaternion.identity);
         Destroy(effect2, 0.5f);
 
+    }
+
+    /// <summary>
+    /// 乱数生成＠攻撃アニメーションランダム再生
+    /// </summary>
+    public void RandomAttackIndex()
+    {
+        randomAttack = Random.value;
+        animator.SetFloat("RandomAttackIndex", randomAttack);
+        Debug.Log("乱数 : " + randomAttack);
     }
 }
