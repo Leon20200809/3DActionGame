@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 // ボタンを押したらGameSceneへ遷移
 public class StartGame : MonoBehaviour    
@@ -11,6 +12,7 @@ public class StartGame : MonoBehaviour
     public GameObject particle;
     public Transform canvasTransform;
     public Transform startBtnTransform;
+    public Image fadeimage;
 
     public void OnStartButton()
     {
@@ -23,6 +25,8 @@ public class StartGame : MonoBehaviour
         sequence.AppendInterval(0.1f);
         sequence.Append(startBtnTransform.DOScale(Vector3.one, 0.1f));
 
+        fadeimage.DOFade(1.0f, 2.0f);
+
         //コルーチンメソッド呼び出し
         StartCoroutine(Kankaku());
     }
@@ -30,11 +34,12 @@ public class StartGame : MonoBehaviour
     IEnumerator Kankaku() //コルーチンメソッド変数名Kankaku
     {
         //(1.5秒の間を設ける)
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(2.5f);
         Debug.Log("Wait");
 
         //ゲームシーンへ移行
         SceneManager.LoadScene("GameScene");
 
     }
+
 }

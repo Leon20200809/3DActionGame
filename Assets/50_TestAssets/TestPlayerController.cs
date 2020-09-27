@@ -15,8 +15,8 @@ public class TestPlayerController : MonoBehaviour
     public float hitBackPower;
 
     //プレイヤー攻撃判定用
-    public Collider weaponCollider;
-    public Collider weaponCollider2;
+    //public Collider weaponCollider;
+    //public Collider weaponCollider2;
 
     //プレイヤーの状態
     public enum PlayerState
@@ -43,12 +43,9 @@ public class TestPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerState != PlayerState.Attack)
-        {
             //前後左右移動入力
             x = Input.GetAxis("Horizontal");
             z = Input.GetAxis("Vertical");
-        }
     }
 
     private void FixedUpdate()  //演算処理はここに書く
@@ -69,7 +66,7 @@ public class TestPlayerController : MonoBehaviour
         }
 
         //移動アニメーション開始
-        //animator.SetFloat("Speed", rb.velocity.magnitude);
+        animator.SetFloat("Speed", rb.velocity.magnitude);
 
     }
 }

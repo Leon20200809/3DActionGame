@@ -43,8 +43,11 @@ public class ElixirBehaviour : StateMachineBehaviour
             playerController.hp = playerController.maxHp;
         }
 
-        GameObject effect = Instantiate(effectPrefab, animator.gameObject.transform.position, Quaternion.identity);
-        //GameObject effect = Instantiate(effectPrefab, new Vector3(playerController., 1.0f, playerController.transform), Quaternion.identity);
+        float offset = 1.5f;
+
+        //GameObject effect = Instantiate(effectPrefab, animator.gameObject.transform.position, Quaternion.identity);
+        GameObject effect = Instantiate(effectPrefab, new Vector3(playerController.transform.position.x, playerController.transform.position.y + offset, playerController.transform.position.z), Quaternion.identity);
+        effect.transform.parent = playerController.transform;       
         Destroy(effect, 1f);
         playerController.playerUIManager.UpdateHP(playerController.hp);
 
