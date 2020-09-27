@@ -15,8 +15,10 @@ public class TestPlayerController : MonoBehaviour
     public float hitBackPower;
 
     //プレイヤー攻撃判定用
-    //public Collider weaponCollider;
     //public Collider weaponCollider2;
+
+    public GameObject sIgameObject;
+        
 
     //プレイヤーの状態
     public enum PlayerState
@@ -38,14 +40,34 @@ public class TestPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
+        //武器の当たり判定、軌跡オフ
+        weaponCollider.enabled = false;
+        weaponCollider2.enabled = false;
+        trail.enabled = false;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        x = 0;
+        z = 0;
+
+        if (playerState != PlayerState.Attack)
+        {
             //前後左右移動入力
             x = Input.GetAxis("Horizontal");
             z = Input.GetAxis("Vertical");
+        }
+
+        //通常攻撃アクション入力
+        if (Input.GetButtonDown("Fire1"))
+        {
+            //LookAtTarget();
+            animator.SetTrigger("Attack");
+        }
+
     }
 
     private void FixedUpdate()  //演算処理はここに書く
@@ -68,5 +90,56 @@ public class TestPlayerController : MonoBehaviour
         //移動アニメーション開始
         animator.SetFloat("Speed", rb.velocity.magnitude);
 
+    }
+
+    //食らい判定用
+    public Collider weaponCollider;
+    public Collider weaponCollider2;
+
+    //武器の攻撃判定オン/オフ
+    public void WeaponColON()
+    {
+        weaponCollider.enabled = true;
+    }
+
+    //武器の攻撃判定オン/オフ
+    public void WeaponColOFF()
+    {
+        weaponCollider.enabled = false;
+    }
+
+    //蹴り用の攻撃判定オン
+    public void WeaponCol2ON()
+    {
+        weaponCollider2.enabled = true;
+    }
+
+    //蹴りの攻撃判定オフ
+    public void WeaponCol2OFF()
+    {
+        weaponCollider2.enabled = false;
+    }
+
+    //武器軌跡用
+    public TrailRenderer trail;
+
+    //武器の軌跡オン
+    public void TrailRendON()
+    {
+        trail.enabled = true;
+    }
+
+    //武器の軌跡オフ
+    public void TrailRendOFF()
+    {
+        trail.enabled = false;
+    }
+
+    /// <summary>
+    /// 斬撃波
+    /// </summary>
+    public void SwIp()
+    {
+        sIgameObject.GetComponent<SwordImpulse>().SwordImpulseShot();
     }
 }

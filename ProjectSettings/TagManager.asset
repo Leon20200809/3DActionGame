@@ -8,6 +8,7 @@ TagManager:
   - EnemyWeapon
   - Enemy
   - Kick
+  - PlayerWeapon
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Enemy
   - Player
   - MIniMap
-  - 
+  - PlayerWeapon
   - 
   - 
   - 
