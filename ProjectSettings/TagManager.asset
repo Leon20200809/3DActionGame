@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Kick
   - PlayerWeapon
+  - Parry
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Player
   - MIniMap
   - PlayerWeapon
-  - 
+  - Parry
   - 
   - 
   - 

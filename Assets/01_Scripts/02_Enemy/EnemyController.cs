@@ -64,6 +64,11 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (target != null)
         {
             //ターゲットへ向かって移動
@@ -83,6 +88,10 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isDead)
+        {
+            return;
+        }
 
         //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
         if (other.gameObject.TryGetComponent(out Damager damager) && (other.CompareTag("Weapon")))

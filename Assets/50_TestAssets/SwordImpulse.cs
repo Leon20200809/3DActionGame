@@ -25,7 +25,7 @@ public class SwordImpulse : MonoBehaviour
     /// </summary>
     public void SwordImpulseShot()
     {
-        GameObject swordImpulse = Instantiate(swordImpulsePrefab, transform.position, Quaternion.identity);
+        GameObject swordImpulse = Instantiate(swordImpulsePrefab, transform.position, swordImpulsePrefab.transform.rotation);
         Rigidbody sIRb = swordImpulse.GetComponent<Rigidbody>();
         sIRb.AddForce(transform.forward * shotSpeed);
         AudioSource.PlayClipAtPoint(shotSE, transform.position);

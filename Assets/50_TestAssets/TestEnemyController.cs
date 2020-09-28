@@ -26,11 +26,11 @@ public class TestEnemyController : MonoBehaviour
     //bool isDead = false;
 
     //HIT、死亡エフェクト用
-    //public GameObject effectPrefab;
+    public GameObject effectPrefab;
     //public GameObject effectPrefab2;
 
     //被ダメージSE
-    //public AudioClip dmageSE;
+    public AudioClip dmageSE;
 
     //乱数用
     //public float randomAttack;
@@ -84,7 +84,7 @@ public class TestEnemyController : MonoBehaviour
     {
 
         //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
-        if (other.gameObject.TryGetComponent(out Damager damager) && (other.CompareTag("PlayerWeapon")))
+        if (other.gameObject.TryGetComponent(out PlayerDamager damager) && (other.CompareTag("PlayerWeapon")))
         {
             //
             float culs = agent.speed;
@@ -93,24 +93,9 @@ public class TestEnemyController : MonoBehaviour
             //食らいモーション再生
             animator.SetTrigger("Attacked");
 
-            //位置を初期化
-            rb.velocity = Vector3.zero;
-
-            //ヒットバック
-            // 自分の位置と接触してきたオブジェクトの位置とを計算して、距離と方向を出して正規化(速度ベクトルを算出)
-            Vector3 distination = (transform.position - other.transform.position).normalized;
-
-            if (damager.isKnokcBack == true)
-            {
-                knockBackPower *= 1f;
-            }
-
-            //ノックバック距離
-            rb.AddForce(distination * knockBackPower, ForceMode.VelocityChange);
-            
             //エフェクト再生
-            //GenerateEffect(other.gameObject);
-            //AudioSource.PlayClipAtPoint(dmageSE, transform.position);
+            GenerateEffect(other.gameObject);
+            AudioSource.PlayClipAtPoint(dmageSE, transform.position);
 
             //ダメージ更新
             //Damage(damager.damage);
@@ -120,6 +105,14 @@ public class TestEnemyController : MonoBehaviour
 
         }
     }
+
+    public void GenerateEffect(GameObject other)
+    {
+        //食らいエフェクトを生成する
+        GameObject effect = Instantiate(effectPrefab, other.transform.position, Quaternion.identity);
+        Destroy(effect, 1f);
+    }
+
 
     /// <summary>
     /// ダメージ管理

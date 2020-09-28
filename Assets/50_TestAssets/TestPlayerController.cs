@@ -43,6 +43,7 @@ public class TestPlayerController : MonoBehaviour
         //武器の当たり判定、軌跡オフ
         weaponCollider.enabled = false;
         weaponCollider2.enabled = false;
+        parryCollider.enabled = false;
         trail.enabled = false;
 
 
@@ -64,9 +65,18 @@ public class TestPlayerController : MonoBehaviour
         //通常攻撃アクション入力
         if (Input.GetButtonDown("Fire1"))
         {
-            //LookAtTarget();
+            LookAtTarget();
             animator.SetTrigger("Attack");
         }
+
+        //パリィアクション入力 SP消費行動
+        if (Input.GetButtonDown("Fire3"))
+        {
+                //移動制限
+                LookAtTarget();
+                animator.SetTrigger("Parry");
+        }
+
 
     }
 
@@ -95,6 +105,7 @@ public class TestPlayerController : MonoBehaviour
     //食らい判定用
     public Collider weaponCollider;
     public Collider weaponCollider2;
+    public Collider parryCollider;
 
     //武器の攻撃判定オン/オフ
     public void WeaponColON()
@@ -120,8 +131,21 @@ public class TestPlayerController : MonoBehaviour
         weaponCollider2.enabled = false;
     }
 
+    //パリィ判定オン
+    public void ParryColON()
+    {
+        parryCollider.enabled = true;
+    }
+
+    //パリィ判定オフ
+    public void ParryColOFF()
+    {
+        parryCollider.enabled = false;
+    }
+
     //武器軌跡用
     public TrailRenderer trail;
+    public TrailRenderer trailparry;
 
     //武器の軌跡オン
     public void TrailRendON()
@@ -135,6 +159,17 @@ public class TestPlayerController : MonoBehaviour
         trail.enabled = false;
     }
 
+    public void TrailParryON()
+    {
+        trail.enabled = true;
+    }
+
+    //武器の軌跡オフ
+    public void TrailparryOFF()
+    {
+        trail.enabled = false;
+    }
+
     /// <summary>
     /// 斬撃波
     /// </summary>
@@ -142,4 +177,33 @@ public class TestPlayerController : MonoBehaviour
     {
         sIgameObject.GetComponent<SwordImpulse>().SwordImpulseShot();
     }
+
+    //敵オブジェクト識別用
+    public Transform target = null;
+    GameObject enemy;
+
+    /// <summary>
+    /// 簡易ロックオン
+    /// </summary>
+    public void LookAtTarget()
+    {
+        GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
+        Debug.Log(enemy);
+        if (enemy != null)
+        {
+            target = enemy.transform;
+            //ターゲットとの距離が3未満の場合オートロックオン
+            float distance = Vector3.Distance(transform.position, target.position);
+            if (distance <= 3)
+            {
+                transform.LookAt(target);
+            }
+            else
+            {
+                target = null;
+            }
+        }
+
+    }
+
 }

@@ -31,6 +31,9 @@ public class StageManager : MonoBehaviour
     //ゲームクリアフラグ
     public GameObject gameClear;
 
+    //勝利ボイス
+    public AudioClip syouriVoice;
+
 
     // Start is called before the first frame update
     void Start()
@@ -89,6 +92,7 @@ public class StageManager : MonoBehaviour
         {
             Debug.Log("ゲームクリア");
             StartCoroutine(Kankaku());
+
         }
 
     }
@@ -152,6 +156,7 @@ public class StageManager : MonoBehaviour
         //(指定秒の間を設ける)
         yield return new WaitForSeconds(2f);
         Debug.Log("Wait");
+        AudioSource.PlayClipAtPoint(syouriVoice, Camera.main.transform.position);
         gameClear.SetActive(true);
     }
 }
