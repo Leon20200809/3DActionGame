@@ -33,6 +33,9 @@ public class TestPlayerController : MonoBehaviour
     Rigidbody rb;
     Animator animator;
 
+    //致命攻撃
+    public bool isFatal = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +48,7 @@ public class TestPlayerController : MonoBehaviour
         weaponCollider2.enabled = false;
         parryCollider.enabled = false;
         trail.enabled = false;
+        trailparry.enabled = false;
 
 
     }
@@ -65,16 +69,38 @@ public class TestPlayerController : MonoBehaviour
         //通常攻撃アクション入力
         if (Input.GetButtonDown("Fire1"))
         {
+            if (isFatal == true)
+            {
+                playerState = PlayerState.Attack;
+                animator.SetTrigger("Kumiuchi");
+
+            }
+            else
+            {
+                playerState = PlayerState.Attack;
+                LookAtTarget();
+                animator.SetTrigger("Attack");
+            }
+
+        }
+
+        //特殊攻撃アクション入力
+        if (Input.GetButtonDown("Fire2"))
+        {
+            playerState = PlayerState.Attack;
             LookAtTarget();
-            animator.SetTrigger("Attack");
+            animator.SetTrigger("SpecialAttack");
+            //animator.SetInteger("AttackType", 1);
+
         }
 
         //パリィアクション入力 SP消費行動
         if (Input.GetButtonDown("Fire3"))
         {
-                //移動制限
-                LookAtTarget();
-                animator.SetTrigger("Parry");
+            playerState = PlayerState.Attack;
+            //移動制限
+            LookAtTarget();
+            animator.SetTrigger("Parry");
         }
 
 
@@ -180,7 +206,6 @@ public class TestPlayerController : MonoBehaviour
 
     //敵オブジェクト識別用
     public Transform target = null;
-    GameObject enemy;
 
     /// <summary>
     /// 簡易ロックオン
@@ -204,6 +229,28 @@ public class TestPlayerController : MonoBehaviour
             }
         }
 
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        //当てたオブジェクトのタグが""のとき
+        if (other.CompareTag("Kumiuchi"))
+        {
+            Rigidbody otherRb = other.GetComponent<Rigidbody>();
+            Debug.Log("致命攻撃範囲内");
+            isFatal = true;
+        }
+
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Kumiuchi"))
+        {
+            Rigidbody otherRb = other.GetComponent<Rigidbody>();
+            Debug.Log("致命攻撃範囲内");
+            isFatal = false;
+        }
     }
 
 }

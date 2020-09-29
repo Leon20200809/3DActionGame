@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GetHitParry : StateMachineBehaviour
+public class TestIdle : StateMachineBehaviour
 {
-    TestEnemyController testEnemyController;
+    TestPlayerController testPlayerController;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (testEnemyController == null)
+        // PlayerControllerを取得していない場合には取得する
+        if (testPlayerController == null)
         {
-            testEnemyController = animator.gameObject.GetComponent<TestEnemyController>();
+            testPlayerController = animator.gameObject.GetComponent<TestPlayerController>();
         }
-
-
-        //animator.SetTrigger("Kumiuchi");
+        testPlayerController.isFatal = false;
+        //攻撃判定オフ
+        testPlayerController.WeaponColOFF();
+        testPlayerController.playerState = TestPlayerController.PlayerState.Normal;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -25,11 +27,10 @@ public class GetHitParry : StateMachineBehaviour
     //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        animator.ResetTrigger("Kumiuchi");
-
-    }
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -13,6 +13,10 @@ public class TestEnemyController : MonoBehaviour
 
     //食らい判定用
     public Collider weaponCollider;
+
+    //パリィ成功時専用コライダー
+    public Collider parryedCollider;
+
     Rigidbody rb;
     public float knockBackPower;
 
@@ -106,6 +110,19 @@ public class TestEnemyController : MonoBehaviour
         }
     }
 
+    void OnTriggerStay(Collider parryedCollider)
+    {
+        //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
+        if (parryedCollider.gameObject.TryGetComponent(out PlayerDamager damager) && (parryedCollider.CompareTag("PlayerWeapon")))
+        {
+            //食らいモーション再生
+            animator.SetTrigger("Kumiuchi");
+
+        }
+        
+
+    }
+
     public void GenerateEffect(GameObject other)
     {
         //食らいエフェクトを生成する
@@ -122,7 +139,22 @@ public class TestEnemyController : MonoBehaviour
 
 
     /// <summary>
-    /// 武器の攻撃判定オン
+    /// パリィ専用コライダーオン
+    /// </summary>
+    public void ParryedColON()
+    {
+        parryedCollider.enabled = true;
+    }
+
+    /// <summary>
+    /// パリィ専用コライダーオフ
+    /// </summary>
+    public void ParryedColOFF()
+    {
+        parryedCollider.enabled = false;
+    }
+    /// <summary>
+    /// 武器コライダーオン
     /// </summary>
     public void WeaponColON()
     {
@@ -130,7 +162,7 @@ public class TestEnemyController : MonoBehaviour
     }
 
     /// <summary>
-    /// 武器の攻撃判定オフ
+    /// 武器コライダーオフ
     /// </summary>
     public void WeaponColOFF()
     {

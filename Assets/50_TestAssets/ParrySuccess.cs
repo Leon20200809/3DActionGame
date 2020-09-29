@@ -5,6 +5,9 @@ using UnityEngine;
 public class ParrySuccess : MonoBehaviour
 {
     Rigidbody rb;
+
+    public GameObject parryColPrefab;
+
     public Animator animator;
     //成功エフェクト
     public ParticleSystem parrySuccessPat;
@@ -29,6 +32,8 @@ public class ParrySuccess : MonoBehaviour
         if (other.CompareTag("Parry"))
         {
             Debug.Log("パリィ成功！");
+            GameObject gameObject = Instantiate(parryColPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject, 2f);
             animator.SetTrigger("ParrtSuccess");
             AudioSource.PlayClipAtPoint(parrySuccessSE, transform.position);
             //エフェクトを生成する

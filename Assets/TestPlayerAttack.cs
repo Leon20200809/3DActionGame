@@ -17,9 +17,6 @@ public class TestPlayerAttack : StateMachineBehaviour
         {
             testPlayerController = animator.gameObject.GetComponent<TestPlayerController>();
         }
-        //攻撃判定オフ
-        testPlayerController.WeaponColOFF();
-        animator.gameObject.GetComponent<TestPlayerController>().playerState = TestPlayerController.PlayerState.Attack;
 
         //武器振り効果音再生
         AudioSource.PlayClipAtPoint(weaponSE, animator.gameObject.transform.position);
@@ -35,7 +32,6 @@ public class TestPlayerAttack : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.gameObject.GetComponent<TestPlayerController>().playerState = TestPlayerController.PlayerState.Normal;
 
     }
 

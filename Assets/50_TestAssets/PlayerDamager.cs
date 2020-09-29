@@ -51,6 +51,10 @@ public class PlayerDamager : MonoBehaviour
         txtchargeTime.text = chargeTime.ToString("F2");
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
         //当てたオブジェクトのタグが"Enemy"のとき
@@ -77,6 +81,8 @@ public class PlayerDamager : MonoBehaviour
                 otherRb.AddForce(distination * knockBackPower, ForceMode.Impulse);
             }
         }
+
     }
+
 
 }

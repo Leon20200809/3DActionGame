@@ -10,6 +10,7 @@ TagManager:
   - Kick
   - PlayerWeapon
   - Parry
+  - Kumiuchi
   layers:
   - Default
   - TransparentFX
