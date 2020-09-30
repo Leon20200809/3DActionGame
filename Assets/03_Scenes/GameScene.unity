@@ -4043,7 +4043,6 @@ Transform:
   m_LocalPosition: {x: -0.026338883, y: 0.020861186, z: -0.004526883}
   m_LocalScale: {x: 1.0000012, y: 1.0000008, z: 1.0000013}
   m_Children:
-  - {fileID: 1375227852}
   - {fileID: 2282152509762995106}
   - {fileID: 776006114}
   m_Father: {fileID: 776006086}
@@ -4062,7 +4061,7 @@ Transform:
   m_Children:
   - {fileID: 776006140}
   m_Father: {fileID: 776006112}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &776006116
 Transform:
@@ -9456,11 +9455,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375227851}
-  m_LocalRotation: {x: 0.2324054, y: -0.0414089, z: 0.36980048, w: 0.89862156}
-  m_LocalPosition: {x: 0.014378681, y: 0.4144468, z: -0.8857972}
-  m_LocalScale: {x: 0.1199999, y: 0.11999986, z: 0.119999886}
+  m_LocalRotation: {x: 0.18998119, y: -0.72195804, z: -0.31593588, w: -0.5855495}
+  m_LocalPosition: {x: -8.81, y: -0.28, z: -0.1}
+  m_LocalScale: {x: 0.79999924, y: 0.79999906, z: 0.7999993}
   m_Children: []
-  m_Father: {fileID: 776006112}
+  m_Father: {fileID: 2282152509762995106}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 12.129, y: 6.738, z: 54.949}
 --- !u!96 &1375227853
@@ -10971,7 +10970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9846c33188b334f8d5ce572fbb283b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  escCheckPouUpPrefab: {fileID: 1923646863500060225, guid: e3a6a96dd84ea0546b71f60e86d73215,
+  escCheckPouUpPrefab: {fileID: 5889193543291013174, guid: e3a6a96dd84ea0546b71f60e86d73215,
     type: 3}
   canvasTran: {fileID: 2075983175}
 --- !u!1 &2092360102
@@ -11291,9 +11290,10 @@ Transform:
   m_LocalRotation: {x: -0.5868691, y: 0.5293336, z: 0.22729024, w: -0.5689726}
   m_LocalPosition: {x: 0.08, y: -0.23, z: 0.115}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
-  m_Children: []
+  m_Children:
+  - {fileID: 1375227852}
   m_Father: {fileID: 776006112}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 25.29, y: -466, z: -76.71}
 --- !u!1 &2282152509763428226
 GameObject:

@@ -19,7 +19,7 @@ public class ElixirBehaviour : StateMachineBehaviour
         {
             playerController = animator.gameObject.GetComponent<PlayerController>();
         }
-
+        animator.gameObject.GetComponent<PlayerController>().playerState = PlayerController.PlayerState.Attack;
         //攻撃判定オフ
         playerController.WeaponColOFF();
 
