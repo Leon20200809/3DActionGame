@@ -30,6 +30,7 @@ public class StageManager : MonoBehaviour
 
     //ゲームクリアフラグ
     public GameObject gameClear;
+    bool isClear = false;
 
     //勝利ボイス
     public AudioClip syouriVoice;
@@ -90,9 +91,17 @@ public class StageManager : MonoBehaviour
 
         if (destroyEnemyNum == 15)
         {
-            Debug.Log("ゲームクリア");
-            StartCoroutine(Kankaku());
+            if (isClear == false)
+            {
+                isClear = true;
+                Debug.Log("ゲームクリア");
+                StartCoroutine(Kankaku());
 
+            }
+            else
+            {
+                return;
+            }
         }
 
     }
@@ -154,7 +163,7 @@ public class StageManager : MonoBehaviour
     IEnumerator Kankaku() //コルーチンメソッド変数名Kankaku
     {
         //(指定秒の間を設ける)
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         Debug.Log("Wait");
         AudioSource.PlayClipAtPoint(syouriVoice, Camera.main.transform.position);
         gameClear.SetActive(true);

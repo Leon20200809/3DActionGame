@@ -90,6 +90,7 @@ public class TestEnemyController : MonoBehaviour
         //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
         if (other.gameObject.TryGetComponent(out PlayerDamager damager) && (other.CompareTag("PlayerWeapon")))
         {
+            StartCoroutine(attackHitStop(0.1f));
             //
             float culs = agent.speed;
             agent.speed = 0f;
@@ -109,6 +110,19 @@ public class TestEnemyController : MonoBehaviour
 
         }
     }
+
+    /// <summary>
+    /// ヒットストップ
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public IEnumerator attackHitStop(float time)
+    {
+        animator.speed = 0.1f;
+        yield return new WaitForSeconds(time);
+        animator.speed = 1.0f;
+    }
+
 
     void OnTriggerStay(Collider parryedCollider)
     {

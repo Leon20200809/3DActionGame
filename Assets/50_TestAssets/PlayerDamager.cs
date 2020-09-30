@@ -60,6 +60,7 @@ public class PlayerDamager : MonoBehaviour
         //当てたオブジェクトのタグが"Enemy"のとき
         if (other.CompareTag("Enemy"))
         {
+            StartCoroutine(attackHitStop(0.1f));
             Rigidbody otherRb = other.GetComponent<Rigidbody>();
             Debug.Log("HIT!");
 
@@ -82,6 +83,18 @@ public class PlayerDamager : MonoBehaviour
             }
         }
 
+    }
+
+    /// <summary>
+    /// ヒットストップ
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public IEnumerator attackHitStop(float time)
+    {
+        animator.speed = 0.1f;
+        yield return new WaitForSeconds(time);
+        animator.speed = 1.0f;
     }
 
 

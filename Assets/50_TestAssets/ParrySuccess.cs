@@ -33,7 +33,7 @@ public class ParrySuccess : MonoBehaviour
         {
             Debug.Log("パリィ成功！");
             GameObject gameObject = Instantiate(parryColPrefab, transform.position, Quaternion.identity);
-            Destroy(gameObject, 2f);
+            Destroy(gameObject, 1.5f);
             animator.SetTrigger("ParrtSuccess");
             AudioSource.PlayClipAtPoint(parrySuccessSE, transform.position);
             //エフェクトを生成する

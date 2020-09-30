@@ -10839,7 +10839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &3929758738554262999
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12528,6 +12528,7 @@ GameObject:
   - component: {fileID: 4635414777650282014}
   - component: {fileID: 4635414777650282012}
   - component: {fileID: 4635414777650282016}
+  - component: {fileID: 4635414777650282018}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -12640,6 +12641,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4635414777650282018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635414777650282011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab639115ab64ca45a091c6b27abc4c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: Enemy
 --- !u!1 &4635414777650282019
 GameObject:
   m_ObjectHideFlags: 0
