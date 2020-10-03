@@ -10,8 +10,6 @@ public class PlayerDamager : MonoBehaviour
     public int damage;
     public bool isKnokcBack = false;
     public int knockBackPower;
-    float chargeTime = 0;
-    public Text txtchargeTime;
 
     public Animator animator;
     //public GameObject root;
@@ -19,36 +17,21 @@ public class PlayerDamager : MonoBehaviour
     //武器振り効果音
     public AudioClip weaponSE;
 
+    Collider weaponController;
+    public Collider parryController;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        weaponController = GetComponent<Collider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1"))
-        {
-            chargeTime += Time.deltaTime;
-        }
 
-        if (Input.GetButtonUp("Fire1"))
-        {
-            if (chargeTime > 2.0f)
-            {
-                //溜め攻撃
-                animator.SetTrigger("ChargeAttack");
-                Debug.Log("溜め攻撃");
-                chargeTime = 0;
-            }
-            else
-            {
-                chargeTime = 0;
-            }
-        }
 
-        txtchargeTime.text = chargeTime.ToString("F2");
+        
     }
 
     /// <summary>
@@ -60,12 +43,18 @@ public class PlayerDamager : MonoBehaviour
         //当てたオブジェクトのタグが"Enemy"のとき
         if (other.CompareTag("Enemy"))
         {
+            weaponController.enabled = false;
             StartCoroutine(attackHitStop(0.1f));
             Rigidbody otherRb = other.GetComponent<Rigidbody>();
+            //Animator oterAnim = other.GetComponent<Animator>();
             Debug.Log("HIT!");
+            //Debug.Log(other.transform.position);
+
+            //oterAnim.SetTrigger("Attacked");
 
             // 自分の位置と接触してきたオブジェクトの位置とを計算して、距離と方向を出して正規化(速度ベクトルを算出)
             Vector3 distination = (other.transform.position - transform.position).normalized;
+            distination = new Vector3(distination.x, distination.y, 0f);
 
 
             if (isKnokcBack == true)
@@ -83,6 +72,12 @@ public class PlayerDamager : MonoBehaviour
             }
         }
 
+        if (other.CompareTag("Kumiuchi"))
+        {
+            parryController.enabled = false;
+            Debug.Log(parryController);
+        }
+
     }
 
     /// <summary>
@@ -95,6 +90,10 @@ public class PlayerDamager : MonoBehaviour
         animator.speed = 0.1f;
         yield return new WaitForSeconds(time);
         animator.speed = 1.0f;
+    }
+
+    void SwordImpulseShot()
+    {
     }
 
 

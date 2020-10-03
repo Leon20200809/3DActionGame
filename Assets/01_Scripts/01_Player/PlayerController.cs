@@ -108,6 +108,14 @@ public class PlayerController : MonoBehaviour
             //前後左右移動入力
             x = Input.GetAxis("Horizontal");
             z = Input.GetAxis("Vertical");
+
+            //斜め移動速度超過制限
+            var moveVector = new Vector3(x, 0, z);
+            if (moveVector.magnitude > 1)
+            {
+                moveVector.Normalize();
+            }
+            
         }
         
 

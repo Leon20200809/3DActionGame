@@ -20,6 +20,8 @@ public class TestEnemyController : MonoBehaviour
     Rigidbody rb;
     public float knockBackPower;
 
+    public bool isFatal = false;
+
     //ステータス設定
     //public int maxHp;
     //public int hp;
@@ -31,6 +33,7 @@ public class TestEnemyController : MonoBehaviour
 
     //HIT、死亡エフェクト用
     public GameObject effectPrefab;
+    public Vector3 effecOfset;
     //public GameObject effectPrefab2;
 
     //被ダメージSE
@@ -86,27 +89,60 @@ public class TestEnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
-        if (other.gameObject.TryGetComponent(out PlayerDamager damager) && (other.CompareTag("PlayerWeapon")))
+         //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
+        if (other.gameObject.TryGetComponent(out PlayerDamager damager) && other.CompareTag("PlayerWeapon") || other.CompareTag("Kick"))
         {
-            StartCoroutine(attackHitStop(0.1f));
-            //
-            float culs = agent.speed;
-            agent.speed = 0f;
+            if (isFatal == true)
+            {
+                IsFatalAttacked(other);
 
-            //食らいモーション再生
-            animator.SetTrigger("Attacked");
+            }
 
-            //エフェクト再生
-            GenerateEffect(other.gameObject);
-            AudioSource.PlayClipAtPoint(dmageSE, transform.position);
+            else if (other.CompareTag("Kick"))
+            {
+                Debug.Log("蹴りＨＩＴ");
+                StartCoroutine(attackHitStop(0.1f));
+                //
+                float culs = agent.speed;
+                agent.speed = 0f;
 
-            //ダメージ更新
-            //Damage(damager.damage);
+                //食らいモーション再生
+                animator.SetTrigger("Down");
 
-            //
-            agent.speed = culs;
+                //エフェクト再生
+                GenerateEffect(other.gameObject);
+                AudioSource.PlayClipAtPoint(dmageSE, transform.position);
+
+                //ダメージ更新
+                //Damage(damager.damage);
+
+                //
+                agent.speed = culs;
+
+            }
+
+            else
+            {
+                Debug.Log("通常攻撃ＨＩＴ");
+                StartCoroutine(attackHitStop(0.1f));
+                //
+                float culs = agent.speed;
+                agent.speed = 0f;
+
+                //食らいモーション再生
+                animator.SetTrigger("Attacked");
+
+                //エフェクト再生
+                GenerateEffect(other.gameObject);
+                AudioSource.PlayClipAtPoint(dmageSE, transform.position);
+
+                //ダメージ更新
+                //Damage(damager.damage);
+
+                //
+                agent.speed = culs;
+
+            }
 
         }
     }
@@ -129,19 +165,16 @@ public class TestEnemyController : MonoBehaviour
         //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
         if (parryedCollider.gameObject.TryGetComponent(out PlayerDamager damager) && (parryedCollider.CompareTag("PlayerWeapon")))
         {
-            //食らいモーション再生
+             //食らいモーション再生
             animator.SetTrigger("Kumiuchi");
-
         }
-        
-
     }
 
     public void GenerateEffect(GameObject other)
     {
         //食らいエフェクトを生成する
-        GameObject effect = Instantiate(effectPrefab, other.transform.position, Quaternion.identity);
-        Destroy(effect, 1f);
+        GameObject effect = Instantiate(effectPrefab, transform.position + effecOfset, transform.rotation);
+        Destroy(effect, 2f);
     }
 
 
@@ -150,7 +183,8 @@ public class TestEnemyController : MonoBehaviour
     /// </summary>
     /// <param name="damage">ダメージ値</param>
 
-
+    
+ 
 
     /// <summary>
     /// パリィ専用コライダーオン
@@ -191,6 +225,18 @@ public class TestEnemyController : MonoBehaviour
         transform.LookAt(target);
     }
 
+    /// <summary>
+    /// 被致命攻撃
+    /// </summary>
+    void IsFatalAttacked(Collider other)
+    {
+        animator.SetTrigger("Kumiuchi");
+        isFatal = false;
+        StartCoroutine(attackHitStop(0.1f));
+        GenerateEffect(other.gameObject);
+        AudioSource.PlayClipAtPoint(dmageSE, transform.position);
+
+    }
 
     /// <summary>
     /// 乱数生成＠攻撃アニメーションランダム再生

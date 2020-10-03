@@ -8933,7 +8933,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObj: {fileID: 0}
-  mouseSensitivity: 1300
 --- !u!1 &970727335
 GameObject:
   m_ObjectHideFlags: 0
@@ -10970,7 +10969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9846c33188b334f8d5ce572fbb283b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  escCheckPouUpPrefab: {fileID: 5889193543291013174, guid: e3a6a96dd84ea0546b71f60e86d73215,
+  escCheckPouUpPrefab: {fileID: 8596924429836441288, guid: e3a6a96dd84ea0546b71f60e86d73215,
     type: 3}
   canvasTran: {fileID: 2075983175}
 --- !u!1 &2092360102

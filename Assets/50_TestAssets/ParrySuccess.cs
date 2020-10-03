@@ -7,6 +7,7 @@ public class ParrySuccess : MonoBehaviour
     Rigidbody rb;
 
     public GameObject parryColPrefab;
+    public TestEnemyController testEnemyCont;
 
     public Animator animator;
     //成功エフェクト
@@ -19,6 +20,7 @@ public class ParrySuccess : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        //testEnemyCont = GetComponent<TestEnemyController>();
     }
 
     // Update is called once per frame
@@ -31,10 +33,11 @@ public class ParrySuccess : MonoBehaviour
     {
         if (other.CompareTag("Parry"))
         {
+            testEnemyCont.isFatal = true;
             Debug.Log("パリィ成功！");
             GameObject gameObject = Instantiate(parryColPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject, 1.5f);
-            animator.SetTrigger("ParrtSuccess");
+            animator.SetTrigger("ParrySuccess");
             AudioSource.PlayClipAtPoint(parrySuccessSE, transform.position);
             //エフェクトを生成する
             parrySuccessPat.Play();

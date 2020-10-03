@@ -211,6 +211,6 @@ public class EnemyController : MonoBehaviour
     {
         randomAttack = Random.value;
         animator.SetFloat("RandomAttackIndex", randomAttack);
-        Debug.Log("乱数 : " + randomAttack);
+        //Debug.Log("乱数 : " + randomAttack);
     }
 }

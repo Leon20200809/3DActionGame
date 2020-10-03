@@ -26,6 +26,8 @@ public class TestPlayerController : MonoBehaviour
         Normal,
         Attack,
         Special,
+        Battou,
+        Noutou,
     }
     public PlayerState playerState = PlayerState.Normal;
 
@@ -35,6 +37,15 @@ public class TestPlayerController : MonoBehaviour
 
     //致命攻撃
     public bool isFatal = false;
+
+    //溜め攻撃用
+    float chargeTime = 0;
+    public Text txtchargeTime;
+
+    //武器切り替え
+    public bool battou;
+    public AnimatorOverrideController animatorOverride;
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +60,7 @@ public class TestPlayerController : MonoBehaviour
         parryCollider.enabled = false;
         trail.enabled = false;
         trailparry.enabled = false;
-
+        battou = true;
 
     }
 
@@ -104,7 +115,51 @@ public class TestPlayerController : MonoBehaviour
         }
 
 
+        if (Input.GetButton("Fire1"))
+        {
+            chargeTime += Time.deltaTime;
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            if (chargeTime > 2.0f)
+            {
+                //溜め攻撃
+                animator.SetTrigger("ChargeAttack");
+                Debug.Log("溜め攻撃");
+                chargeTime = 0;
+            }
+            else
+            {
+                chargeTime = 0;
+            }
+        }
+
+        txtchargeTime.text = chargeTime.ToString("F2");
+
+
+        //武器切り替え
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (battou == false)
+            {
+                animator.SetTrigger("Battou");
+                Debug.Log("抜刀");
+                battou = true;
+                //animator.runtimeAnimatorController = animatorOverride;
+            }
+            else if (battou == true)
+            {
+                Debug.Log("納刀");
+                animator.SetTrigger("Noutou");
+                battou = false;
+                //animator.runtimeAnimatorController = animatorOverride.runtimeAnimatorController;
+            }
+
+        }
+
     }
+
 
     private void FixedUpdate()  //演算処理はここに書く
     {
@@ -248,7 +303,8 @@ public class TestPlayerController : MonoBehaviour
         if (other.CompareTag("Kumiuchi"))
         {
             Rigidbody otherRb = other.GetComponent<Rigidbody>();
-            Debug.Log("致命攻撃範囲内");
+            Debug.Log("致命攻撃範囲外");
+            animator.ResetTrigger("Kumiuchi");
             isFatal = false;
         }
     }

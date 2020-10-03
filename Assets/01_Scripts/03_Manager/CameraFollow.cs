@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
 {
     public GameObject targetObj;
     Vector3 targetPos;
-    public float mouseSensitivity;
+    //public float mouseSensitivity;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class CameraFollow : MonoBehaviour
         float mouseInputY = Input.GetAxis("Mouse Y");
 
         // targetの位置のY軸を中心に、回転（公転）する
-        transform.RotateAround(targetPos, Vector3.up, mouseInputX * Time.deltaTime * mouseSensitivity);
+        transform.RotateAround(targetPos, Vector3.up, mouseInputX * Time.deltaTime * DataSender.mouseSensitivity);
 
         // カメラの垂直移動
         //transform.RotateAround(targetPos, transform.right, mouseInputY * Time.deltaTime * 200f);

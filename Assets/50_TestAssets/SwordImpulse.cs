@@ -25,12 +25,15 @@ public class SwordImpulse : MonoBehaviour
     /// </summary>
     public void SwordImpulseShot()
     {
-        GameObject swordImpulse = Instantiate(swordImpulsePrefab, transform.position, swordImpulsePrefab.transform.rotation);
-        Rigidbody sIRb = swordImpulse.GetComponent<Rigidbody>();
-        sIRb.AddForce(transform.forward * shotSpeed);
+        GameObject swordImpulse = Instantiate(swordImpulsePrefab, transform.position, Quaternion.identity);
+        Rigidbody swordImpulseRb = swordImpulse.GetComponent<Rigidbody>();
+
+        swordImpulseRb.AddForce(transform.forward * shotSpeed);
+
+        Destroy(swordImpulse, 3f);
+
         AudioSource.PlayClipAtPoint(shotSE, transform.position);
 
-        Destroy(swordImpulse, 3.0f);
     }
 
 }
