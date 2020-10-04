@@ -146,14 +146,14 @@ public class TestPlayerController : MonoBehaviour
                 animator.SetTrigger("Battou");
                 Debug.Log("抜刀");
                 battou = true;
-                //animator.runtimeAnimatorController = animatorOverride;
+                animator.runtimeAnimatorController = animatorOverride;
             }
             else if (battou == true)
             {
                 Debug.Log("納刀");
                 animator.SetTrigger("Noutou");
                 battou = false;
-                //animator.runtimeAnimatorController = animatorOverride.runtimeAnimatorController;
+                animator.runtimeAnimatorController = animatorOverride.runtimeAnimatorController;
             }
 
         }

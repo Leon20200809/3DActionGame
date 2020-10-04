@@ -33,7 +33,7 @@ public class ParrySuccess : MonoBehaviour
     {
         if (other.CompareTag("Parry"))
         {
-            testEnemyCont.isFatal = true;
+            testEnemyCont.isFataled = true;
             Debug.Log("パリィ成功！");
             GameObject gameObject = Instantiate(parryColPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject, 1.5f);
@@ -41,8 +41,6 @@ public class ParrySuccess : MonoBehaviour
             AudioSource.PlayClipAtPoint(parrySuccessSE, transform.position);
             //エフェクトを生成する
             parrySuccessPat.Play();
-
-
         }
     }
 }

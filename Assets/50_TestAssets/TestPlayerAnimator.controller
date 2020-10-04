@@ -353,7 +353,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LightAttk2_Test
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3921244971003149058}
@@ -411,6 +411,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55665be267bf3f04c9acd82eb60d4a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1101 &-1702030257266315479
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 0}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 1
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.72727275
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1102 &-1640665623913712784
 AnimatorState:
   serializedVersion: 5
@@ -704,10 +726,9 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: StrongAttk2_Test
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: 314919186494429302}
+  m_Transitions: []
   m_StateMachineBehaviours:
   - {fileID: 6346797469226111079}
   m_Position: {x: 50, y: 50, z: 0}
@@ -757,28 +778,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1101 &314919186494429302
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 0}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 1
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.78260875
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1102 &1133705934607491065
 AnimatorState:
   serializedVersion: 5
@@ -787,10 +786,10 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LightAttk3_Test
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 6208132398739966067}
+  - {fileID: 6273718102505288845}
   - {fileID: -773862153085433904}
   m_StateMachineBehaviours:
   - {fileID: 6356582835171156295}
@@ -982,6 +981,33 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1102 &4002966561812798874
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LightAttk4
+  m_Speed: 1.5
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: -1702030257266315479}
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 5bf3515063fb43c45955f9907f87ffcc, type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1107 &4344782583870860621
 AnimatorStateMachine:
   serializedVersion: 5
@@ -1093,7 +1119,7 @@ AnimatorStateMachine:
     m_Position: {x: 300, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 223269375862171593}
-    m_Position: {x: 390, y: 370, z: 0}
+    m_Position: {x: 610, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1133705934607491065}
     m_Position: {x: 390, y: 280, z: 0}
@@ -1103,6 +1129,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -3612393238011249694}
     m_Position: {x: 140, y: 200, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 4002966561812798874}
+    m_Position: {x: 390, y: 370, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1192,7 +1221,7 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &6208132398739966067
+--- !u!1101 &6273718102505288845
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1204,7 +1233,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 223269375862171593}
+  m_DstState: {fileID: 4002966561812798874}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0

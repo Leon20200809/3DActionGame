@@ -17,10 +17,14 @@ public class TestEnemyController : MonoBehaviour
     //パリィ成功時専用コライダー
     public Collider parryedCollider;
 
+    //ダウン時専用コライダー
+    public GameObject downCollider;
+
     Rigidbody rb;
     public float knockBackPower;
 
-    public bool isFatal = false;
+    public bool isFataled = false;
+    public bool isDownAttacked = false;
 
     //ステータス設定
     //public int maxHp;
@@ -92,10 +96,15 @@ public class TestEnemyController : MonoBehaviour
          //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
         if (other.gameObject.TryGetComponent(out PlayerDamager damager) && other.CompareTag("PlayerWeapon") || other.CompareTag("Kick"))
         {
-            if (isFatal == true)
+            if (isFataled == true)
             {
+                Debug.Log("組討ち！");
                 IsFatalAttacked(other);
-
+            }
+            else if (isDownAttacked == true)
+            {
+                Debug.Log("追い討ち！");
+                IsDownAttacked(other);
             }
 
             else if (other.CompareTag("Kick"))
@@ -160,13 +169,26 @@ public class TestEnemyController : MonoBehaviour
     }
 
 
+    public IEnumerator DownTime()
+    {
+        isDownAttacked = true;
+        GameObject gameObject = Instantiate(downCollider, transform.position, Quaternion.identity);
+        animator.speed = 0f;
+        yield return new WaitForSeconds(3f);
+        animator.speed = 1.0f;
+        Destroy(gameObject, 3f);
+        isDownAttacked = false;
+
+    }
+
+
     void OnTriggerStay(Collider parryedCollider)
     {
         //敵の食らい判定 Damagerスクリプトを持つゲームオブジェクトにぶつかる
         if (parryedCollider.gameObject.TryGetComponent(out PlayerDamager damager) && (parryedCollider.CompareTag("PlayerWeapon")))
         {
-             //食らいモーション再生
-            animator.SetTrigger("Kumiuchi");
+                //食らいモーション再生
+                animator.SetTrigger("Kumiuchi");
         }
     }
 
@@ -231,7 +253,21 @@ public class TestEnemyController : MonoBehaviour
     void IsFatalAttacked(Collider other)
     {
         animator.SetTrigger("Kumiuchi");
-        isFatal = false;
+        isFataled = false;
+        StartCoroutine(attackHitStop(0.1f));
+        GenerateEffect(other.gameObject);
+        AudioSource.PlayClipAtPoint(dmageSE, transform.position);
+
+    }
+
+    /// <summary>
+    /// 被追い討ち攻撃
+    /// </summary>
+    /// <param name="other"></param>
+    void IsDownAttacked(Collider other)
+    {
+        animator.SetTrigger("Oiuchi");
+        isFataled = false;
         StartCoroutine(attackHitStop(0.1f));
         GenerateEffect(other.gameObject);
         AudioSource.PlayClipAtPoint(dmageSE, transform.position);

@@ -27,7 +27,7 @@ public class SwordImpulse : MonoBehaviour
     {
         GameObject swordImpulse = Instantiate(swordImpulsePrefab, transform.position, Quaternion.identity);
         Rigidbody swordImpulseRb = swordImpulse.GetComponent<Rigidbody>();
-
+        
         swordImpulseRb.AddForce(transform.forward * shotSpeed);
 
         Destroy(swordImpulse, 3f);

@@ -11,6 +11,7 @@ TagManager:
   - PlayerWeapon
   - Parry
   - Kumiuchi
+  - Down
   layers:
   - Default
   - TransparentFX
